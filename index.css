@@ -1,3 +1,16 @@
+body{
+    background: #e6dec6
+}
 .container{
-    background: black
+    position: relative;
+}
+.fengxing-vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.fengxing-vertical-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
