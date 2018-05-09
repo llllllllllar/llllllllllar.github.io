@@ -3,16 +3,102 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="index.css" type="text/css">
+        <style media="screen">
+            body {
+                background-image: url(bg.jpg);
+                background-size: cover;
+                /* background-color: #e6dec6; */
+            }
+            .container {
+                position: relative;
+                margin: 10px;
+            }
+            .content-wapper {
+                /* padding: 50px */
+                border-radius: 15px;
+                text-align: center;
+                background: rgba(0,0,0,0.45);
+                padding: 0 20px;
+            }
+            .fengxing-vertical {
+                position: absolute;
+                top: 38%;
+                transform: translateY(-50%);
+            }
+            .fengxing-horizontal {
+                position: absolute;
+                left: 48%;
+                transform: translateX(-50%);
+            }
+            .title {
+                margin: 10px;
+                padding: 20px;
+                border-bottom: 2px solid rgba(239,179,203,0.45);
+                font-size: 22px;
+                color: rgba(239,179,203,0.9);
+            }
+            .link-box {
+                margin: 15px;
+            }
+            .link-text {
+                margin: 8px 0;
+                border-radius: 5px;
+                font-size: 16px;
+                background-color: rgba(0,0,0,0.7)
+            }
+            .link-text a {
+                text-decoration: none;
+                color: rgba(229,124,0,1);
+            }
+            .link-text a:visited {
+                color: rgba(229,124,0,0.7);
+            }
+            .link-text a:hover {
+                color: rgba(255,255,255,1);
+                text-decoration: underline;
+            }
+
+        </style>
         <title>风行</title>
     </head>
     <body>
         <div class="container">
-            <div class="fengxing-vertical-center fengxing-horizontal-center">
-                <h1>Welcome</h1>
-                <div class=""><a href="/blogs">博客</a></div>
-                <div class=""><a href="/apps">一些小玩意</a></div>
+            <div class="content-wapper fengxing-vertical fengxing-horizontal">
+                <div class="title">
+                    <div class="">欢迎</div>
+                    <div class="">Welcome</div>
+                </div>
+                <div class="link-box">
+                    <div class="link-text"><a href="/blogs">博客/blog</a></div>
+                    <div class="link-text"><a href="/apps">一些小玩意/apps</a></div>
+                </div>
             </div>
         </div>
+        <script>
+            var log = console.log.bind(console)
+
+            var e = selector => document.querySelector(selector)
+
+            var initContainerHeight = () => {
+                var intViewportHeight = window.innerHeight
+                var container = e('.container')
+                var margin = 20
+                var containerHeight = intViewportHeight - margin
+                container.style.height = `${containerHeight}px`
+            }
+
+            var containerHeight = () => {
+                initContainerHeight()
+                window.onresize = resize
+                function resize() {
+                    initContainerHeight()
+                }
+            }
+
+            var __main = () => {
+                containerHeight()
+            }
+            __main()
+        </script>
     </body>
 </html>
