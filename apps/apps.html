@@ -7,14 +7,12 @@
             body {
                 background-image: url(bg.jpg);
                 background-size: cover;
-                /* background-color: #e6dec6; */
             }
             .container {
                 position: relative;
                 margin: 10px;
             }
             .content-wapper {
-                /* padding: 50px */
                 border-radius: 15px;
                 text-align: center;
                 background: rgba(0,0,0,0.45);
@@ -55,7 +53,6 @@
                 border-bottom: 2px solid rgba(239,179,203,0.45);
                 font-size: 22px;
                 color: rgba(239,179,203,0.9);
-                /* cursor: pointer; */
             }
             .fengxing-show {
                 display: block;
@@ -109,15 +106,9 @@
 
             var appendHtml = (element, html) => element.insertAdjacentHTML('beforeend', html)
 
-            var bindEvent = (element, eventName, callback) => {
-                element.addEventListener(eventName, callback)
-            }
-
             var initContainerHeight = () => {
                 var intViewportHeight = window.innerHeight
                 var container = e('.container')
-                // var margin = 20
-                // var containerHeight = intViewportHeight - margin
                 container.style.height = `${intViewportHeight}px`
             }
 
@@ -137,12 +128,6 @@
             }
             var insertApp = () => {
                 var linkBox = e('.link-box')
-                // var obj = {
-                //     '扫雷': 'minesweeper',
-                //     '音乐播放器': 'music_player',
-                //     '天气': 'weather',
-                //     '待办事项': 'todo',
-                // }
                 var a1 = ['扫雷', '音乐播放器', '天气', '待办事项']
                 var a2 = ['minesweeper', 'music_player', 'weather', 'todo']
                 for (var i = 0; i < a1.length; i++) {
@@ -151,14 +136,9 @@
                 }
             }
 
-            var bindEvents = () => {
-
-            }
-
             var __main = () => {
                 containerHeight()
                 insertApp()
-                bindEvents()
             }
             __main()
         </script>
