@@ -22,13 +22,32 @@
             }
             .fengxing-vertical {
                 position: absolute;
-                top: 38%;
-                transform: translateY(-38%);
+                top: 10%;
+                transform: translateY(-10%);
             }
             .fengxing-horizontal {
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
+            }
+            .fengxing-float-left {
+                float: left;
+            }
+            .fengxing-clear::after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+            .back {
+                font-size: 22px;
+            }
+            .back a {
+                text-decoration: none;
+                color: rgba(239,179,203,0.7)
+            }
+            .back a:hover {
+                text-decoration: underline;
+                color: rgba(255,255,255,1);
             }
             .title {
                 margin: 10px;
@@ -36,12 +55,20 @@
                 border-bottom: 2px solid rgba(239,179,203,0.45);
                 font-size: 22px;
                 color: rgba(239,179,203,0.9);
+                /* cursor: pointer; */
+            }
+            .fengxing-show {
+                display: block;
+            }
+            .fengxing-hide {
+                display: none;
             }
             .link-box {
                 margin: 15px;
             }
             .link-text {
-                margin: 8px 0;
+                margin: 8px 5px;
+                padding: 5px;
                 border-radius: 5px;
                 font-size: 16px;
                 background-color: rgba(0,0,0,0.7)
@@ -59,18 +86,19 @@
             }
 
         </style>
-        <title>风行</title>
+        <title>一些小玩意</title>
     </head>
     <body>
         <div class="container">
             <div class="content-wapper fengxing-vertical fengxing-horizontal">
-                <div class="title">
-                    <div class="">欢迎</div>
-                    <div class="">Welcome</div>
+                <div class="back fengxing-float-left">
+                    <a href="/">&lt;&lt;</a>
                 </div>
-                <div class="link-box">
-                    <div class="link-text"><a href="/blogs">博客/blog</a></div>
-                    <div class="link-text"><a href="/apps/apps.html">一些小玩意/apps</a></div>
+                <div class="title">
+                    <div class="">小玩意</div>
+                    <div class="">Apps</div>
+                </div>
+                <div class="link-box fengxing-clear">
                 </div>
             </div>
         </div>
@@ -79,12 +107,18 @@
 
             var e = selector => document.querySelector(selector)
 
+            var appendHtml = (element, html) => element.insertAdjacentHTML('beforeend', html)
+
+            var bindEvent = (element, eventName, callback) => {
+                element.addEventListener(eventName, callback)
+            }
+
             var initContainerHeight = () => {
                 var intViewportHeight = window.innerHeight
                 var container = e('.container')
-                var margin = 20
-                var containerHeight = intViewportHeight - margin
-                container.style.height = `${containerHeight}px`
+                // var margin = 20
+                // var containerHeight = intViewportHeight - margin
+                container.style.height = `${intViewportHeight}px`
             }
 
             var containerHeight = () => {
@@ -95,8 +129,36 @@
                 }
             }
 
+            var templateApp = (appCn, appEn) => {
+                var t = `
+                    <div class="link-text fengxing-float-left"><a href="/apps/${appEn}/${appEn}.html">${appCn}<br/>${appEn}</a></div>
+                `
+                return t
+            }
+            var insertApp = () => {
+                var linkBox = e('.link-box')
+                // var obj = {
+                //     '扫雷': 'minesweeper',
+                //     '音乐播放器': 'music_player',
+                //     '天气': 'weather',
+                //     '待办事项': 'todo',
+                // }
+                var a1 = ['扫雷', '音乐播放器', '天气', '待办事项']
+                var a2 = ['minesweeper', 'music_player', 'weather', 'todo']
+                for (var i = 0; i < a1.length; i++) {
+                    var html = templateApp(a1[i], a2[i])
+                    appendHtml(linkBox, html)
+                }
+            }
+
+            var bindEvents = () => {
+
+            }
+
             var __main = () => {
                 containerHeight()
+                insertApp()
+                bindEvents()
             }
             __main()
         </script>
