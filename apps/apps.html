@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style media="screen">
             body {
-                background-image: url(bg.jpg);
+                background-image: url(/bg2.jpg);
                 background-size: cover;
             }
             .container {
@@ -128,7 +128,7 @@
             }
             var insertApp = () => {
                 var linkBox = e('.link-box')
-                var a1 = ['扫雷', '音乐播放器', '天气', '待办事项']
+                var a1 = ['扫雷', '音乐播放器', '广州三天天气', '待办事项']
                 var a2 = ['minesweeper', 'music_player', 'weather', 'todo']
                 for (var i = 0; i < a1.length; i++) {
                     var html = templateApp(a1[i], a2[i])

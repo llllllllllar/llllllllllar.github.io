@@ -1,17 +1,20 @@
+@media screen and (max-width: 600px) {
+    body {
+        margin-left: 0;
+    }
+    div {
+        margin-left: 0;
+    }
+}
+
 body {
     background-image: url(/bg2.jpg);
     background-size: cover;
-    /* background-color: #e6dec6; */
 }
 .container {
     position: relative;
     margin: 10px;
-}
-.content-wapper {
-    border-radius: 15px;
     text-align: center;
-    background: rgba(0,0,0,0.45);
-    padding: 0 20px;
 }
 .fengxing-vertical-center {
     position: absolute;
@@ -31,17 +34,20 @@ body {
     display: block;
     clear: both;
 }
-.back {
-    font-size: 22px;
+.weather-display {
+    margin: 10px;
+    display: inline-block;
 }
-.back a {
-    text-decoration: none;
-    color: rgba(239,179,203,0.7)
+.weather-box {
+    margin: 8px 0;
+    padding: 8px;
+    border-radius: 5px;
+    color: rgba(229,124,0,1);
+    background: rgba(0,0,0,0.7);
 }
-.back a:hover {
-    text-decoration: underline;
-    color: rgba(255,255,255,1);
-}
-.content-wapper h1 {
-    color: rgba(255,255,255,1)
+.content-box {
+    margin: 10px;
+    padding: 25px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.45);
 }
