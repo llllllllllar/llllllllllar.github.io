@@ -1,29 +1,3 @@
-body {
-    background-image: url(/bg2.webp);
-    background-size: cover;
-}
-.container {
-    position: relative;
-    text-align: center;
-}
-.fengxing-vertical-center {
-    position: absolute;
-    top: 35%;
-    transform: translateY(-35%);
-}
-.fengxing-horizontal-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.fengxing-float-left {
-    float: left;
-}
-.fengxing-clear::after {
-    content: '';
-    display: block;
-    clear: both;
-}
 .weather-display {
     display: inline-block;
 }
@@ -39,8 +13,8 @@ body {
     padding: 25px;
     border-radius: 10px;
     background: rgba(255,255,255,0.45);
+    text-align: center;
 }
-
 @media screen and (max-width: 600px) {
     body {
         margin: 0;

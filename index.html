@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style media="screen">
             body {
-                background-image: url(bg1.webp);
+                background-image: url(/pics/bg1.webp);
                 background-size: cover;
             }
             .container {
@@ -55,7 +55,59 @@
                 color: rgba(255,255,255,1);
                 text-decoration: underline;
             }
-
+            /*3. 轮播图*/
+            .fengxing-slide {
+                width: 440px;
+                position: relative;
+            }
+            .fengxing-slide-image {
+                display: none;
+            }
+            /* 用来垂直居中一个元素的套路 CSS */
+            .fengxing-vertical-center {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            /*fengxing-slide-image*/
+            .fengxing-active {
+                display: inline-block;
+            }
+            .fengxing-slide-button {
+                font-size: 24px;
+                right: 0;
+                height: 50px;
+                width: 30px;
+                color: rgba(239,179,203,0.9);
+                background: black;
+                opacity: 0.3;
+                border: none;
+                outline: 0;
+                cursor: pointer;
+            }
+            .fengxing-slide-button.fengxing-left {
+                left: 0;
+            }
+            .fengxing-slide-button.fengxing-right {
+                right: 0;
+            }
+            .fengxing-slide-indicators {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+            }
+            .fengxing-slide-indi {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: rgba(239,179,203,0.9);
+                cursor: pointer;
+            }
+            .fengxing-white {
+                background: rgba(229,124,0,0.8);
+            }
         </style>
         <title>风行</title>
     </head>
@@ -68,7 +120,18 @@
                 </div>
                 <div class="link-box">
                     <div class="link-text"><a href="/blogs/blogs.html">博客/blog</a></div>
-                    <div class="link-text"><a href="/apps/apps.html">一些小玩意/apps</a></div>
+                    <div class="link-text"><a href="/apps/apps.html">一些小应用/apps</a></div>
+                </div>
+            </div>
+            <div class="slide">
+                <button class="fengxing-slide-button fengxing-left fengxing-vertical-center" data-offset="-1">&lt;</button>
+                <button class="fengxing-slide-button fengxing-right fengxing-vertical-center" data-offset="1">&gt;</button>
+                <div class="fengxing-slide-indicators">
+                    <div id="id-indi-0" class="fengxing-slide-indi fengxing-white" data-index="0"></div>
+                    <div id="id-indi-1" class="fengxing-slide-indi" data-index="1"></div>
+                    <div id="id-indi-2" class="fengxing-slide-indi" data-index="2"></div>
+                    <div id="id-indi-3" class="fengxing-slide-indi" data-index="3"></div>
+                    <div id="id-indi-4" class="fengxing-slide-indi" data-index="4"></div>
                 </div>
             </div>
         </div>

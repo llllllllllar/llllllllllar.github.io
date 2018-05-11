@@ -25,8 +25,10 @@ var elementWidth = (element) => {
 var Width = () => {
     var e1 = e('#main')
     var e2 = e('#weather')
+    var e3 = e('#nav-box')
     elementWidth(e1)
     elementWidth(e2)
+    elementWidth(e3)
 }
 
 var ajax = (method, path, data, callback) => {

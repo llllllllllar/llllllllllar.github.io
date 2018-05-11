@@ -1,0 +1,40 @@
+body {
+    background-image: url(/pics/bg2.webp);
+    background-size: cover;
+}
+.container {
+    position: relative;
+}
+
+.menu-item {
+    float: left;
+}
+
+.menu-item a {
+    color: rgba(0,0,0,1);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu-item a:hover {
+    color: rgba(255,255,255,0.8);
+}
+.fengxing-vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.fengxing-horizontal-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.fengxing-float-left {
+    float: left;
+}
+.fengxing-clear::after {
+    content: '';
+    display: block;
+    clear: both;
+}
