@@ -14,7 +14,7 @@ var initElementWidth = (element) => {
     log('main.style.width', element.style.width)
 }
 
-var elementWidth  = (element) => {
+var elementWidth = (element) => {
     initElementWidth(element)
     window.onresize = resize
     function resize() {
@@ -27,32 +27,6 @@ var Width = () => {
     var e2 = e('#weather')
     elementWidth(e1)
     elementWidth(e2)
-}
-
-var initElementMargin = (element) => {
-    var w = window.screen.width
-    if (w < 600) {
-        element.style.marginLeft = `0`
-    }
-}
-
-var elementMargin  = (element) => {
-    initElementMargin(element)
-    window.onresize = resize
-    function resize() {
-        initElementMargin(element)
-    }
-}
-
-var margin = () =>{
-    var e1 = e('#main')
-    var e2 = e('#weather')
-    var e3 = e('body')
-    var e4 = e('.content-box')
-    elementMargin(e1)
-    elementMargin(e2)
-    elementMargin(e3)
-    elementMargin(e4)
 }
 
 var ajax = (method, path, data, callback) => {
@@ -234,7 +208,6 @@ var showChart = (data) => {
 
 var __main = () => {
     Width()
-    // margin()
     weatherGet('guangzhou')
 }
 __main()

@@ -1,19 +1,9 @@
-@media screen and (max-width: 600px) {
-    body {
-        margin-left: 0;
-    }
-    div {
-        margin-left: 0;
-    }
-}
-
 body {
-    background-image: url(/bg2.jpg);
+    background-image: url(/bg2.webp);
     background-size: cover;
 }
 .container {
     position: relative;
-    margin: 10px;
     text-align: center;
 }
 .fengxing-vertical-center {
@@ -35,7 +25,6 @@ body {
     clear: both;
 }
 .weather-display {
-    margin: 10px;
     display: inline-block;
 }
 .weather-box {
@@ -46,8 +35,14 @@ body {
     background: rgba(0,0,0,0.7);
 }
 .content-box {
-    margin: 10px;
+    margin: 10px 0;
     padding: 25px;
     border-radius: 10px;
     background: rgba(255,255,255,0.45);
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        margin: 0;
+    }
 }
