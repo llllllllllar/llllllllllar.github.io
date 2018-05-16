@@ -1,21 +1,113 @@
-var initContainerHeight = () => {
+var initElementHeight = (element) => {
     var intViewportHeight = window.innerHeight
-    var container = e('.container')
-    var margin = 20
-    var containerHeight = intViewportHeight - margin
-    container.style.height = `${containerHeight}px`
+    element.style.height = `${intViewportHeight}px`
 }
 
-var containerHeight = () => {
-    initContainerHeight()
+var elementHeight = (element) => {
+    initElementHeight(element)
     window.onresize = resize
     function resize() {
-        initContainerHeight()
+        initElementHeight(element)
     }
 }
 
+var height = () => {
+    var e1 = e('.container')
+    var e2 = e('.fengxing-slide')
+    elementHeight(e1)
+    elementHeight(e2)
+}
+
+var initElementWidth = (element) => {
+    var intViewportHeight = window.innerWidth
+    element.style.width = `${intViewportHeight}px`
+}
+
+var elementWidth = (element) => {
+    initElementWidth(element)
+    window.onresize = resize
+    function resize() {
+        initElementWidth(element)
+    }
+}
+
+var width = () => {
+    var e1 = e('.fengxing-slide')
+    elementWidth(e1)
+}
+
+var nextIndex = (slide, offset) => {
+    var numberOfImgs = Number(slide.dataset.imgs)
+    var activeIndex = Number(slide.dataset.active)
+    var i = (activeIndex + offset + numberOfImgs) % numberOfImgs
+    return i
+}
+
+var bindEventSlide = () => {
+    var selector = '.fengxing-slide-button'
+    bindAll(selector, 'click', (event) => {
+        var button = event.target
+        // 找到 slide div
+        var slide = button.parentElement
+        // 求出下一张图片的 index
+        var offset = Number(button.dataset.offset)
+        var index = nextIndex(slide, offset)
+        // 显示下一张图片
+        showImageAtIndex(slide, index)
+    })
+}
+
+var switchIndicator = (slide, index) => {
+    var nextIndex = index
+    slide.dataset.active = nextIndex
+    // 切换小圆点
+    // 1. 删除当前小圆点的 class
+    removeClassAll('fengxing-white')
+    // 2. 得到下一个小圆点的选择器
+    var indiSelector = '#id-indi-' + String(nextIndex)
+    var indi = e(indiSelector)
+    indi.classList.add('fengxing-white')
+}
+
+var showImageAtIndex = (slide, index) => {
+    var nextIndex = index
+    // 设置父节点的 data-active
+    slide.dataset.active = nextIndex
+    // 删除当前图片的 class 给下一张图片加上 class
+    var className = 'fengxing-active'
+    removeClassAll(className)
+    // 得到下一张图片的选择器
+    var nextSelector = '#id-fengxingimage-' + String(nextIndex)
+    // 使用 e 函数可以得到一个元素, 参数是选择器(字符串)
+    var img = e(nextSelector)
+    img.classList.add(className)
+    switchIndicator(slide, index)
+}
+
+var bindEventIndicator = () => {
+    var selector = '.fengxing-slide-indi'
+    bindAll(selector, 'mouseover', (event) => {
+        var self = event.target
+        var index = Number(self.dataset.index)
+        // 直接播放第 n 张图片
+        var slide = self.closest('.fengxing-slide')
+        showImageAtIndex(slide, index)
+    })
+}
+
+var bindClickIndicator = () => {
+    var selector = '.fengxing-slide-indi'
+    bindAll(selector, 'click', (event) => {
+        var self = event.target
+        var index = Number(self.dataset.index)
+        // 直接播放第 n 张图片
+        var slide = self.closest('.fengxing-slide')
+        showImageAtIndex(slide, index)
+    })
+}
+
 var count = () => {
-    var i = 0
+    var i = 4
     return () => {
         if (i < 4) {
             i++
@@ -26,28 +118,36 @@ var count = () => {
     }
 }
 
-var playNextImage = (i) => {
+var switchImage = (i) => {
     var element = e('body')
+    log('i', i)
     element.style.backgroundImage = `url(/pics/bg${i}.webp)`
+}
+
+var playNextImage = () => {
+    var slide = e('.fengxing-slide')
+    // 求出下一张图片的 index
+    var index = nextIndex(slide, 1)
+    // 显示下一张图片
+    showImageAtIndex(slide, index)
 }
 
 var autoPlay = () => {
     var interval = 3500
     var index = count()
-    setInterval(function() {
+    setInterval(() => {
         // 每 3.5s 都会调用这个函数
-        playNextImage(index())
+        switchImage(index())
+        playNextImage()
     }, interval)
+    switchImage(index())
 }
 
-var load = () => {
-    bindEvent(window, "load", (event) => {
-        containerHeight()
-        autoPlay()
-        log("All resources have finished loading!")
-    })
-}
 var __main = () => {
-    load()
+    height()
+    width()
+    bindEventSlide()
+    bindEventIndicator()
+    autoPlay()
 }
 __main()

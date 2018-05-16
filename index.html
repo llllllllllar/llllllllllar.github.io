@@ -3,15 +3,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
         <style media="screen">
+            html {
+                overflow: hidden;
+            }
             body {
-                background-image: url(/pics/bg1.webp);
+                background-image: url(/pics/bg0.webp);
                 background-size: cover;
                 background-color: rgba(239,179,203,0.3);
+                margin: 0;
             }
             .container {
                 position: relative;
-                margin: 10px;
             }
             .content-wapper {
                 border-radius: 15px;
@@ -56,11 +60,116 @@
                 color: rgba(255,255,255,1);
                 text-decoration: underline;
             }
+            /* .cover {
+                object-fit: cover;
+            } */
+            .fengxing-hide {
+                display: none;
+            }
+            .fengxing-menu-content {
+                height: 100px;
+                border: 1px solid red;
+            }
+            .fengxing-item {
+                /*display: inline-block;*/
+                /*opacity: 0.6;*/
+                filter: grayscale(100%);
+            }
+            .fengxing-item.fengxing-highlight {
+                filter: initial;
+                /*opacity: 1;*/
+            }
+            .fengxing-item.fengxing-highlight img {
+                width: 150px;
+                height: 150px;
+            }
+            img {
+                /*transition 这个 css 指定了某个属性发生变化的时候自动使用动画效果和动画时间*/
+                width: 100%;
+                height: 100%;
+                transition: width 1s, height 1s;
+                object-fit: cover;
+            }
+
+            /*3. 轮播图*/
+            .fengxing-slide {
+                /* width: 440px; */
+                position: relative;
+            }
+            .fengxing-slide-image {
+                display: none;
+            }
+            /*fengxing-slide-image*/
+            .fengxing-active {
+                display: inline-block;
+            }
+            .fengxing-slide-button {
+                font-size: 32px;
+                right: 0;
+                height: 50px;
+                width: 30px;
+                color: #fff;
+                background: black;
+                opacity: 0.3;
+                border: none;
+                outline: 0;
+                cursor: pointer;
+            }
+            .fengxing-slide-button.fengxing-left {
+                left: 0;
+            }
+            .fengxing-slide-button.fengxing-right {
+                right: 0;
+            }
+            /* 用来垂直居中一个元素的套路 CSS */
+            .fengxing-vertical-center {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            .fengxing-slide-indicators {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 20px;
+            }
+            .fengxing-slide-indi {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: rgba(229,124,0,1);
+                cursor: pointer;
+            }
+            .fengxing-white {
+                background: white;
+            }
         </style>
         <title>风行</title>
     </head>
     <body>
         <div class="container">
+            <!-- 轮播图 -->
+            <div class="fengxing-background">
+                <!-- data-imgs 是图片的总数 -->
+                <!-- data-active 是当前显示的图片的下标 -->
+                <div class="fengxing-slide" data-imgs="5" data-active="0">
+                    <img id="id-fengxingimage-0" class="fengxing-slide-image fengxing-active" src="/pics/bg0.webp" alt="">
+                    <img id="id-fengxingimage-1" class="fengxing-slide-image" src="/pics/bg1.webp" alt="">
+                    <img id="id-fengxingimage-2" class="fengxing-slide-image" src="/pics/bg2.webp" alt="">
+                    <img id="id-fengxingimage-3" class="fengxing-slide-image" src="/pics/bg3.webp" alt="">
+                    <img id="id-fengxingimage-4" class="fengxing-slide-image" src="/pics/bg4.webp" alt="">
+                    <button class="fengxing-slide-button fengxing-left fengxing-vertical-center" data-offset="-1">&lt;</button>
+                    <button class="fengxing-slide-button fengxing-right fengxing-vertical-center" data-offset="1">&gt;</button>
+                    <div class="fengxing-slide-indicators">
+                        <div id="id-indi-0" class="fengxing-slide-indi fengxing-white" data-index="0"></div>
+                        <div id="id-indi-1" class="fengxing-slide-indi" data-index="1"></div>
+                        <div id="id-indi-2" class="fengxing-slide-indi" data-index="2"></div>
+                        <div id="id-indi-3" class="fengxing-slide-indi" data-index="3"></div>
+                        <div id="id-indi-4" class="fengxing-slide-indi" data-index="4"></div>
+                    </div>
+                </div>
+            </div>
             <div class="content-wapper fengxing-vertical fengxing-horizontal">
                 <div class="title">
                     <div class="">欢迎</div>
@@ -68,7 +177,7 @@
                 </div>
                 <div class="link-box">
                     <div class="link-text"><a href="/blogs/blogs.html">博客/blog</a></div>
-                    <div class="link-text"><a href="/apps/apps.html">一些小应用/apps</a></div>
+                    <div class="link-text"><a href="/apps/apps.html">小应用/apps</a></div>
                 </div>
             </div>
         </div>
