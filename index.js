@@ -120,7 +120,6 @@ var count = () => {
 
 var switchImage = (i) => {
     var element = e('body')
-    log('i', i)
     element.style.backgroundImage = `url(/pics/bg${i}.webp)`
 }
 
