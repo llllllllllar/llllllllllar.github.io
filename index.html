@@ -7,6 +7,7 @@
             body {
                 background-image: url(/pics/bg1.webp);
                 background-size: cover;
+                background-color: rgba(239,179,203,0.3);
             }
             .container {
                 position: relative;
@@ -55,59 +56,6 @@
                 color: rgba(255,255,255,1);
                 text-decoration: underline;
             }
-            /*3. 轮播图*/
-            .fengxing-slide {
-                width: 440px;
-                position: relative;
-            }
-            .fengxing-slide-image {
-                display: none;
-            }
-            /* 用来垂直居中一个元素的套路 CSS */
-            .fengxing-vertical-center {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            /*fengxing-slide-image*/
-            .fengxing-active {
-                display: inline-block;
-            }
-            .fengxing-slide-button {
-                font-size: 24px;
-                right: 0;
-                height: 50px;
-                width: 30px;
-                color: rgba(239,179,203,0.9);
-                background: black;
-                opacity: 0.3;
-                border: none;
-                outline: 0;
-                cursor: pointer;
-            }
-            .fengxing-slide-button.fengxing-left {
-                left: 0;
-            }
-            .fengxing-slide-button.fengxing-right {
-                right: 0;
-            }
-            .fengxing-slide-indicators {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 10px;
-            }
-            .fengxing-slide-indi {
-                display: inline-block;
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: rgba(239,179,203,0.9);
-                cursor: pointer;
-            }
-            .fengxing-white {
-                background: rgba(229,124,0,0.8);
-            }
         </style>
         <title>风行</title>
     </head>
@@ -123,43 +71,9 @@
                     <div class="link-text"><a href="/apps/apps.html">一些小应用/apps</a></div>
                 </div>
             </div>
-            <div class="slide">
-                <button class="fengxing-slide-button fengxing-left fengxing-vertical-center" data-offset="-1">&lt;</button>
-                <button class="fengxing-slide-button fengxing-right fengxing-vertical-center" data-offset="1">&gt;</button>
-                <div class="fengxing-slide-indicators">
-                    <div id="id-indi-0" class="fengxing-slide-indi fengxing-white" data-index="0"></div>
-                    <div id="id-indi-1" class="fengxing-slide-indi" data-index="1"></div>
-                    <div id="id-indi-2" class="fengxing-slide-indi" data-index="2"></div>
-                    <div id="id-indi-3" class="fengxing-slide-indi" data-index="3"></div>
-                    <div id="id-indi-4" class="fengxing-slide-indi" data-index="4"></div>
-                </div>
-            </div>
         </div>
-        <script>
-            var log = console.log.bind(console)
-
-            var e = selector => document.querySelector(selector)
-
-            var initContainerHeight = () => {
-                var intViewportHeight = window.innerHeight
-                var container = e('.container')
-                var margin = 20
-                var containerHeight = intViewportHeight - margin
-                container.style.height = `${containerHeight}px`
-            }
-
-            var containerHeight = () => {
-                initContainerHeight()
-                window.onresize = resize
-                function resize() {
-                    initContainerHeight()
-                }
-            }
-
-            var __main = () => {
-                containerHeight()
-            }
-            __main()
-        </script>
+        <script src="fengxing.js" charset="utf-8"></script>
+        <script src="center.js" charset="utf-8"></script>
+        <script src="bgSlide.js" charset="utf-8"></script>
     </body>
 </html>
