@@ -1,9 +1,3 @@
-var log = console.log.bind(console)
-
-var e = selector => document.querySelector(selector)
-
-var appendHtml = (element, html) => element.insertAdjacentHTML('beforeend', html)
-
 var initElementWidth = (element) => {
     var w = window.screen.width
     if (w > 600) {
@@ -11,18 +5,10 @@ var initElementWidth = (element) => {
     } else {
         element.style.width = `${w}px`
     }
-    log('main.style.width', element.style.width)
 }
 
-var elementWidth = (element) => {
-    initElementWidth(element)
-    window.onresize = resize
-    function resize() {
-        initElementWidth(element)
-    }
-}
 
-var Width = () => {
+var weatherWidth = () => {
     var e1 = e('#main')
     var e2 = e('#weather')
     var e3 = e('#nav-box')
@@ -86,8 +72,6 @@ var cleanData = (data) => {
         icoDay.push(icoD)
         icoNight.push(icoN)
     }
-    log('day', day)
-    log('night', night)
     var obj = {
         'location': location,
         'date': date,
@@ -98,8 +82,6 @@ var cleanData = (data) => {
         'icoDay': icoDay,
         'icoNight': icoNight,
     }
-    log('day', icoDay)
-    log('night', icoNight)
     return obj
 }
 
@@ -209,7 +191,7 @@ var showChart = (data) => {
 }
 
 var __main = () => {
-    Width()
+    weatherWidth()
     weatherGet('guangzhou')
 }
 __main()

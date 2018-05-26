@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/apps/normal.css">
+        <link rel="stylesheet" href="minesweeper.css">
         <title>扫雷游戏</title>
     </head>
     <body>
@@ -12,7 +13,24 @@
                 <div class="menu-item"><a href="/blogs/blogs.html">博客</a></div>
                 <div class="menu-item"><a href="/apps/apps.html">小应用</a></div>
             </nav>
+            <div class="minesweeper">
+                <h1>扫雷</h1>
+                <h2>Minesweeper</h2>
+                <!-- <div class="game-level">
+                    <button type="button" name="button" id="id-game-level-easy" class="">Easy 9 x 9</button>
+                    <button type="button" name="button" id="id-game-level-normal" class="">Normal 12 x 12</button>
+                    <button type="button" name="button" id="id-game-level-hard" class="">Hard 20 x 20</button>
+                </div> -->
+                <div id="id-game-box" class="game-box">
+
+                </div>
+                <div class="game-status">
+                    <span>Time:</span>
+                    <span><button type="button" name="button" id="id-game-restart">Restart</button></span>
+                </div>
+            </div>
         </div>
-        <script src="minesweeper_game.js" charset="utf-8"></script>
+        <script src="/fengxing.js" charset="utf-8"></script>
+        <script src="minesweeper.js" charset="utf-8"></script>
     </body>
 </html>

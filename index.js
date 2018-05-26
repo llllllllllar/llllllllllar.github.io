@@ -1,37 +1,9 @@
-var initElementHeight = (element) => {
-    var intViewportHeight = window.innerHeight
-    element.style.height = `${intViewportHeight}px`
-}
-
-var elementHeight = (element) => {
-    initElementHeight(element)
-    window.onresize = resize
-    function resize() {
-        initElementHeight(element)
-    }
-}
-
-var height = () => {
-    var e1 = e('.container')
-    var e2 = e('.fengxing-slide')
+var slideHeight = () => {
+    var e1 = e('.fengxing-slide')
     elementHeight(e1)
-    elementHeight(e2)
 }
 
-var initElementWidth = (element) => {
-    var intViewportHeight = window.innerWidth
-    element.style.width = `${intViewportHeight}px`
-}
-
-var elementWidth = (element) => {
-    initElementWidth(element)
-    window.onresize = resize
-    function resize() {
-        initElementWidth(element)
-    }
-}
-
-var width = () => {
+var slideWidth = () => {
     var e1 = e('.fengxing-slide')
     elementWidth(e1)
 }
@@ -144,7 +116,8 @@ var autoPlay = () => {
 
 var __main = () => {
     height()
-    width()
+    slideHeight()
+    slideWidth()
     bindEventSlide()
     bindEventIndicator()
     autoPlay()

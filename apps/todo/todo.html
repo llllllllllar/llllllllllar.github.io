@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/apps/normal.css">
+        <link rel="stylesheet" href="todo.css">
         <title>待办应用</title>
     </head>
     <body>
@@ -12,6 +13,17 @@
                 <div class="menu-item"><a href="/blogs/blogs.html">博客</a></div>
                 <div class="menu-item"><a href="/apps/apps.html">小应用</a></div>
             </nav>
+            <div id="id-todo-wrapper">
+                <!-- todo 输入框 -->
+                <div class="todo-form">
+                    <input id="id-input-todo" type="text">
+                    <button id="id-button-add" class="todo-add" type="button">增加待办</button>
+                </div>
+                <div id="id-todo-box">
+                </div>
+            </div>
         </div>
+        <script src="/fengxing.js" charset="utf-8"></script>
+        <script src="todo.js" charset="utf-8"></script>
     </body>
 </html>

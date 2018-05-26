@@ -1,6 +1,6 @@
 var log = console.log.bind(console)
 
-var e = (selector) => {
+var e = function(selector) {
     var element = document.querySelector(selector)
     if (element == null) {
         var s = `元素没找到，选择器 ${selector} 没有找到或者 js 没有放在 body 里`
@@ -11,7 +11,7 @@ var e = (selector) => {
     return element
 }
 
-var es = (selector) => {
+var es = function(selector) {
     var elements = document.querySelectorAll(selector)
     if (elements.length == 0) {
         var s = `元素没找到，选择器 ${selector} 没有找到或者 js 没有放在 body 里`
@@ -20,15 +20,15 @@ var es = (selector) => {
         return elements
     }
 }
-var appendHtml = (element, html) => {
+var appendHtml = function(element, html) {
     element.insertAdjacentHTML('beforeend', html)
 }
 
-var bindEvent = (element, eventName, callback) => {
+var bindEvent = function(element, eventName, callback) {
     element.addEventListener(eventName, callback)
 }
 
-var removeClassAll = (className) => {
+var removeClassAll = function(className) {
     var selector = '.' + className
     var elements = es(selector)
     for (var i = 0; i < elements.length; i++) {
@@ -37,7 +37,16 @@ var removeClassAll = (className) => {
     }
 }
 
-var bindAll = (selector, eventName, callback) => {
+var addClassAll = function(className) {
+    var selector = '.' + className
+    var elements = es(selector)
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        e.classList.add(className)
+    }
+}
+
+var bindAll = function(selector, eventName, callback) {
     var elements = es(selector)
     for (var i = 0; i < elements.length; i++) {
         var e = elements[i]
@@ -45,7 +54,7 @@ var bindAll = (selector, eventName, callback) => {
     }
 }
 
-var find = (element, selector) => {
+var find = function(element, selector) {
     var e = element.querySelector(selector)
     if (e == null) {
         var s = `元素没找到，选择器 ${selector} 没有找到或者 js 没有放在 body 里`
@@ -55,7 +64,7 @@ var find = (element, selector) => {
     }
 }
 
-var closestClass = (element, className) => {
+var closestClass = function(element, className) {
     var e = element
     while (e != null) {
         if (e.classList.contains(className)) {
@@ -67,7 +76,7 @@ var closestClass = (element, className) => {
     return null
 }
 
-var closestId = (element, idName) => {
+var closestId = function(element, idName) {
     var e = element
     while (e != null) {
         if (e.id == idName) {
@@ -79,7 +88,7 @@ var closestId = (element, idName) => {
     return null
 }
 
-var closestTag = (element, tagName) => {
+var closestTag = function(element, tagName) {
     var e = element
     while (e != null) {
         if (e.tagName.toUpperCase() == tagName.toUpperCase()) {
@@ -91,7 +100,7 @@ var closestTag = (element, tagName) => {
     return null
 }
 
-var closest = (element, selector) => {
+var closest = function(element, selector) {
     var c = selector[0]
     if (c == '.') {
         var className = selector.slice(1)
@@ -103,4 +112,35 @@ var closest = (element, selector) => {
         var tag = selector
         return closestTag(element, tag)
     }
+}
+
+var initElementHeight = function(element) {
+    var intViewportHeight = window.innerHeight
+    element.style.height = `${intViewportHeight}px`
+}
+
+var elementHeight = function(element) {
+    initElementHeight(element)
+    window.onresize = resize
+    function resize() {
+        initElementHeight(element)
+    }
+}
+
+var initElementWidth = function(element) {
+    var intViewportHeight = window.innerWidth
+    element.style.width = `${intViewportHeight}px`
+}
+
+var elementWidth = function(element) {
+    initElementWidth(element)
+    window.onresize = resize
+    function resize() {
+        initElementWidth(element)
+    }
+}
+
+var height = function() {
+    var e1 = e('.container')
+    elementHeight(e1)
 }

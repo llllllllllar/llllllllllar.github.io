@@ -99,27 +99,12 @@
                 </div>
             </div>
         </div>
+        <script src="/fengxing.js" charset="utf-8"></script>
         <script>
-            var log = console.log.bind(console)
-
-            var e = selector => document.querySelector(selector)
-
-            var appendHtml = (element, html) => element.insertAdjacentHTML('beforeend', html)
-
-            var initContainerHeight = () => {
-                var intViewportHeight = window.innerHeight
-                var container = e('.container')
-                container.style.height = `${intViewportHeight}px`
+            var height = () => {
+                var e1 = e('.container')
+                elementHeight(e1)
             }
-
-            var containerHeight = () => {
-                initContainerHeight()
-                window.onresize = resize
-                function resize() {
-                    initContainerHeight()
-                }
-            }
-
             var templateApp = (appCn, appEn) => {
                 var t = `
                     <div class="link-text fengxing-float-left"><a href="/apps/${appEn}/${appEn}.html">${appCn}<br/>${appEn}</a></div>
@@ -137,7 +122,7 @@
             }
 
             var __main = () => {
-                containerHeight()
+                height()
                 insertApp()
             }
             __main()
