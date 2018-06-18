@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/apps/normal.css">
         <link rel="stylesheet" href="todo.css">
         <title>待办应用</title>
@@ -11,18 +12,26 @@
             <nav id="nav-box" class="content-box fengxing-clear">
                 <div class="menu-item"><a href="/">主页</a></div>
                 <div class="menu-item"><a href="/blogs/blogs.html">博客</a></div>
-                <div class="menu-item"><a href="/apps/apps.html">小应用</a></div>
+                <div class="menu-item"><a href="/apps/apps.html">应用</a></div>
             </nav>
-            <div id="id-todo-wrapper">
+            <div id="id-todo-wrapper" class="todo-wrapper fengxing-horizontal-center">
+                <div class="title">Todo</div>
                 <!-- todo 输入框 -->
                 <div class="todo-form">
-                    <input id="id-input-todo" type="text">
-                    <button id="id-button-add" class="todo-add" type="button">增加待办</button>
+                    <!-- <input id="id-input-todo" class="field-input" type="text"> -->
+                    <label class="field a-field a-field-a3 page-field">
+                        <input id="id-input-todo" class="field-input" placeholder="待办事项" required>
+                        <span class="field-label-wrap">
+                            <span class="field-label">What needs to be done?</span>
+                        </span>
+                    </label>
+                    <button id="id-button-add" class="todo-add" type="button">+</button>
                 </div>
-                <div id="id-todo-box">
+                <div id="id-todo-box" class="todo-list">
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="https://at.alicdn.com/t/font_711414_sq54290ggu.js"></script>
         <script src="/fengxing.js" charset="utf-8"></script>
         <script src="todo.js" charset="utf-8"></script>
     </body>

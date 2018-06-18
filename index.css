@@ -1,0 +1,139 @@
+html {
+    overflow: hidden;
+}
+body {
+    background-image: url(/pics/bg0.webp);
+    background-size: cover;
+    background-color: rgba(239,179,203,0.3);
+    margin: 0;
+}
+.container {
+    position: relative;
+}
+.content-wapper {
+    border-radius: 15px;
+    text-align: center;
+    background: rgba(0,0,0,0.45);
+    padding: 0 20px;
+}
+.fengxing-vertical {
+    position: absolute;
+    top: 38%;
+    transform: translateY(-38%);
+}
+.fengxing-horizontal {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.title {
+    margin: 10px;
+    padding: 20px;
+    border-bottom: 2px solid rgba(239,179,203,0.45);
+    font-size: 22px;
+    color: rgba(239,179,203,0.9);
+}
+.link-box {
+    margin: 15px;
+}
+.link-text {
+    margin: 8px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(0,0,0,0.7);
+}
+.link-text a {
+    text-decoration: none;
+    color: rgba(229,124,0,1);
+}
+.link-text a:visited {
+    color: rgba(229,124,0,0.7);
+}
+.link-text a:hover {
+    color: rgba(255,255,255,1);
+    text-decoration: underline;
+}
+/* .cover {
+    object-fit: cover;
+} */
+.fengxing-hide {
+    display: none;
+}
+.fengxing-menu-content {
+    height: 100px;
+    border: 1px solid red;
+}
+.fengxing-item {
+    /*display: inline-block;*/
+    /*opacity: 0.6;*/
+    filter: grayscale(100%);
+}
+.fengxing-item.fengxing-highlight {
+    filter: initial;
+    /*opacity: 1;*/
+}
+.fengxing-item.fengxing-highlight img {
+    width: 150px;
+    height: 150px;
+}
+img {
+    /*transition 这个 css 指定了某个属性发生变化的时候自动使用动画效果和动画时间*/
+    width: 100%;
+    height: 100%;
+    transition: width 1s, height 1s;
+    object-fit: cover;
+}
+
+/*3. 轮播图*/
+.fengxing-slide {
+    /* width: 440px; */
+    position: relative;
+}
+.fengxing-slide-image {
+    display: none;
+}
+/*fengxing-slide-image*/
+.fengxing-active {
+    display: inline-block;
+}
+.fengxing-slide-button {
+    font-size: 32px;
+    right: 0;
+    height: 50px;
+    width: 30px;
+    color: #fff;
+    background: black;
+    opacity: 0.3;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+}
+.fengxing-slide-button.fengxing-left {
+    left: 0;
+}
+.fengxing-slide-button.fengxing-right {
+    right: 0;
+}
+/* 用来垂直居中一个元素的套路 CSS */
+.fengxing-vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.fengxing-slide-indicators {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+}
+.fengxing-slide-indi {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(229,124,0,1);
+    cursor: pointer;
+}
+.fengxing-white {
+    background: white;
+}

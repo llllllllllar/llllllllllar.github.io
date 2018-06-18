@@ -2,6 +2,284 @@ html {
     overflow: hidden;
 }
 
+.todo-wrapper {
+    border-radius: 15px;
+    text-align: center;
+    background: rgba(0,0,0,0.45);
+    padding: 0 20px;
+    width: 300px;
+}
+
+.title {
+    margin: 10px;
+    padding-top: 20px;
+    /* border-bottom: 2px solid rgba(239,179,203,0.45); */
+    font-size: 36px;
+    color: rgba(239,179,203,0.9);
+}
+
+.todo-form {
+    margin: 10px 0;
+}
+
+.icon {
+   width: 1em; height: 1em;
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
+}
+
+/*
+==========Input Style ==========
+*/
+/*
+=====
+LEVEL 1. RESET STYLES
+=====
+*/
+
+.field {
+    --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
+}
+
+.field-input {
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    font-family: inherit;
+    font-size: 1em;
+}
+
+.a-field .field-input:focus {
+    outline: none;
+}
+
+.field-input:focus::-webkit-input-placeholder {
+    color: var(--uiFieldPlaceholderColor);
+}
+
+.field-input:focus::-moz-placeholder {
+    color: var(--uiFieldPlaceholderColor);
+    opacity: 1;
+}
+
+/*
+=====
+LEVEL 2. CORE STYLES
+=====
+*/
+
+.field {
+    display: inline-block;
+}
+
+.field-input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/*
+=====
+LEVEL 3. PRESENTATION STYLES
+=====
+*/
+
+/* a-field */
+
+.a-field {
+    --uiFieldHeight: var(--fieldHeight, 40px);
+    --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
+    --uiFieldBorderColor: var(--fieldBorderColor);
+
+    --uiFieldFontSize: var(--fieldFontSize, 1em);
+    --uiFieldHintFontSize: var(--fieldHintFontSize, 1em);
+    --uiFieldFontColor: var(--fieldFontColor);
+
+    --uiFieldPaddingRight: var(--fieldPaddingRight, 15px);
+    --uiFieldPaddingBottom: var(--fieldPaddingBottom, 15px);
+    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 15px);
+
+    position: relative;
+    box-sizing: border-box;
+    font-size: var(--uiFieldFontSize);
+    color: var(--uiFieldFontColor);
+    padding-top: 1em;
+}
+
+.a-field .field-input  {
+    height: var(--uiFieldHeight);
+    padding: 0 var(--uiFieldPaddingRight) 0 var(--uiFieldPaddingLeft);
+    border-bottom: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColor);
+    color: var(--uiFieldFontColor);
+}
+
+.a-field .field-input::-webkit-input-placeholder {
+    opacity: 0;
+    transition: opacity .2s ease-out;
+}
+
+.a-field .field-input::-moz-placeholder {
+    opacity: 0;
+    transition: opacity .2s ease-out;
+}
+
+.a-field .field-input:not(:placeholder-shown) ~ .field-label-wrap .field-label {
+    opacity: 0;
+    bottom: var(--uiFieldPaddingBottom);
+}
+
+.a-field .field-input:focus::-webkit-input-placeholder {
+    opacity: 1;
+    transition-delay: .2s;
+}
+
+.a-field .field-input:focus::-moz-placeholder {
+    opacity: 1;
+    transition-delay: .2s;
+}
+
+.a-field .field-label-wrap {
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--uiFieldHeight);
+
+    pointer-events: none;
+    cursor: text;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.a-field .field-label {
+    position: absolute;
+    left: var(--uiFieldPaddingLeft);
+    bottom: calc(50% - .5em);
+
+    line-height: 1;
+    font-size: var(--uiFieldHintFontSize);
+
+    pointer-events: none;
+    transition: bottom .2s cubic-bezier(0.9,-0.15, 0.1, 1.15), opacity .2s ease-out;
+    will-change: bottom, opacity;
+}
+
+.a-field .field-input:focus ~ .field-label-wrap .field-label {
+    opacity: 1;
+    bottom: var(--uiFieldHeight);
+}
+
+/* a-field-a3 */
+
+.a-field-a3 {
+    padding-top: 1.5em;
+}
+
+.a-field-a3 .field-label-wrap:after {
+    content: "";
+    box-sizing: border-box;
+    width: 100%;
+    height: 0;
+
+    opacity: 0;
+    border: var(--uiFieldBorderWidth) solid var(--fieldBorderColorActive);
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    will-change: opacity, height;
+    transition: height .2s ease-out, opacity .2s ease-out;
+}
+
+.a-field-a3 .field-input:focus ~ .field-label-wrap:after {
+    height: 100%;
+    opacity: 1;
+}
+
+.a-field-a3 .field-input:focus ~ .field-label-wrap .field-label {
+    bottom: calc(var(--uiFieldHeight) + .5em);
+}
+
+/*
+=====
+LEVEL 4. SETTINGS
+=====
+*/
+
+.field {
+    --fieldBorderColor: rgba(239, 179, 203, 0.75);
+    --fieldBorderColorActive: rgba(239, 179, 203, 1);
+    --fieldFontColor: rgba(229, 124, 0, 1);
+}
+/*
+==========Input Style==========
+*/
+
+/*
+==========Add Todo Button==========
+*/
+.todo-add {
+    background: transparent;
+    float: right;
+    margin-top: 1em;
+    font-size: 28px;
+    color: rgba(239, 179, 203, 0.9);
+    cursor: pointer;
+    border: none;
+}
+.todo-add:hover {
+    animation: borderAnim 3s infinite;
+}
+.todo-list {
+    margin: 10px 0;
+    text-align: justify;
+    color: rgba(229, 124, 0, 1);
+}
+
+@keyframes borderAnim {
+    0% {
+        border: 1px solid;
+    }
+    15% {
+        border: 1px solid rgba(229, 124, 0, 1);
+        color: rgba(229, 124, 0, 1);
+    }
+    50% {
+        border: 1px solid rgba(229, 124, 0, 1);
+        color: rgba(229, 124, 0, 1);
+    }
+    100% {
+        border: 1px solid;
+    }
+}
+/*
+==========Add Todo Button==========
+*/
+
+/*
+==========Todo-Lists Buttons==========
+*/
+.todo-cell {
+    margin: 3px;
+}
+.todo-cell > button {
+    background: transparent;
+    color: rgba(239, 179, 203, 1);
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+}
+
+.todo-cell > button:hover {
+    animation: borderAnim 3s infinite;
+}
+
 .done {
     color: gray;
     text-decoration: line-through;

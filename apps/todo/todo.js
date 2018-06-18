@@ -2,9 +2,21 @@
 var templateTodo = function(todo, status, className) {
     var t = `
         <div class="todo-cell ${className}">
-            <button class="todo-done ${status}">完成</button>
-            <button class="todo-edit">编辑</button>
-            <button class="todo-delete">删除</button>
+            <button class="todo-done ${status}">
+                <svg class="icon todo-done" aria-hidden="true">
+                    <use xlink:href="#icon-done" class="todo-done"></use>
+                </svg>
+            </button>
+            <button class="todo-edit">
+                <svg class="icon todo-edit" aria-hidden="true">
+                    <use xlink:href="#icon-edit" class="todo-edit"></use>
+                </svg>
+            </button>
+            <button class="todo-delete">
+                <svg class="icon todo-delete" aria-hidden="true">
+                    <use xlink:href="#icon-delete" class="todo-delete"></use>
+                </svg>
+            </button>
             <span class="todo-task">${todo}</span>
         </div>
     `
@@ -19,6 +31,7 @@ var loadTodos = function() {
         return ts
     }
 }
+
 var saveTodo = function(todo, status) {
     var todos = loadTodos()
     var o = {
@@ -121,7 +134,7 @@ var bindEventDelete = function() {
     bindEvent(todoBox, 'click', function(event) {
         var self = event.target
         if (self.classList.contains('todo-delete')) {
-            var todoDiv = self.parentElement
+            var todoDiv = self.closest('.todo-cell')
             var container = todoDiv.parentElement
             deleteTodo(container, todoDiv)
         }
@@ -133,7 +146,7 @@ var bindEventDone = function() {
     bindEvent(todoBox, 'click', function(event) {
         var self = event.target
         if (self.classList.contains('todo-done')) {
-            var todoDiv = self.parentElement
+            var todoDiv = self.closest('.todo-cell')
             var container = todoDiv.parentElement
             var className = 'done'
             toggleClass(todoDiv, className)
@@ -161,6 +174,7 @@ var bindEventUpdate = function() {
     bindEvent(todoBox, 'keydown', function(event) {
         var self = event.target
         if (self.classList.contains('todo-task')) {
+            if (event.key == 'Enter') {
                 event.preventDefault()
                 self.contentEditable = false
                 var todoCell = self.closest('.todo-cell')
@@ -168,6 +182,7 @@ var bindEventUpdate = function() {
                 var box = todoCell.parentElement
                 updateTodo(box, todoCell, value)
             }
+        }
     })
 }
 
