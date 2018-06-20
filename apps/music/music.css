@@ -1,0 +1,22 @@
+html {
+    overflow: hidden;
+}
+
+.player-wrapper {
+    border-radius: 15px;
+    /* text-align: center; */
+    background: rgba(0,0,0,0.45);
+    padding: 0 20px;
+    width: 450px;
+}
+
+.icon {
+   width: 1.5em; height: 1.5em;
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
+}
+
+.controller {
+    font-size: 16px;
+}

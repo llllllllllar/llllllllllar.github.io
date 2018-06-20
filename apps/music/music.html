@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/apps/normal.css">
+        <link rel="stylesheet" href="music.css">
         <title>音乐播放器</title>
     </head>
     <body>
@@ -13,7 +14,49 @@
                 <div class="menu-item"><a href="/blogs/blogs.html">博客</a></div>
                 <div class="menu-item"><a href="/apps/apps.html">应用</a></div>
             </nav>
+            <div id="id-player-wrapper" class="player-wrapper fengxing-horizontal-center">
+                <div id="id-song-list">
+                    <div id="id-song-0" class="song" data-path="1.mp3">1.mp3</div>
+                    <div id="id-song-1" class="song" data-path="2.mp3">2.mp3</div>
+                    <div id="id-song-2" class="song" data-path="3.mp3">3.mp3</div>
+                </div>
+                <audio id="id-audio-player" controls="controls" src="1.mp3"></audio>
+                <div id="id-song-controller" class="controller">
+                    <span id="id-play-mode" class="single">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-single"></use>
+                        </svg>
+                    </span>
+                    <span id="id-button-play" class="play-pause">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-pause"></use>
+                        </svg>
+                    </span>
+                    <span id="id-music-sound" class="sound">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-sound"></use>
+                        </svg>
+                    </span>
+                    <span class="play-time">
+                        <span id="id-span-current">
+                            <span>
+                                00:00
+                            </span>
+                        </span>
+                        <span id="id-span-duration">
+                            /
+                            <span>
+                                00:00
+                            </span>
+                        </span>
+                    </span>
+
+
+                </div>
+            </div>
         </div>
+        <script src="https://at.alicdn.com/t/font_714440_mxznxqnbts.js"></script>
         <script src="/fengxing.js" charset="utf-8"></script>
+        <script src="music.js" charset="utf-8"></script>
     </body>
 </html>
