@@ -242,8 +242,8 @@ var bindButtonLast = function(audio) {
 
 var bindEventCanplay = function(audio) {
     bindEvent(audio, 'canplay', function(event) {
-        switchSong(audio)
         audio.play()
+        switchSong(audio)
         showDuration(audio)
         bindTimeUpdate(audio)
     })
@@ -256,26 +256,41 @@ var bindEventEnd = function(audio) {
     })
 }
 
-var bindEvents = function(audio) {
+var bindAudioStatus = function(audio) {
     bindEventCanplay(audio)
     bindEventEnd(audio)
+    bindCurrentTime(audio)
+}
+
+var bindAudioController = function(audio) {
     bindPlayMode()
     bindMusicSound(audio)
     bindButtonNext(audio)
     bindButtonLast(audio)
     bindButtonPlay(audio)
-    bindCurrentTime(audio)
 }
 
 var audio = function() {
     var a = e('#id-audio-player')
-    bindEvents(a)
+    bindAudioController(a)
 }
 
+var bindButtonStart = function() {
+    var a = e('#id-audio-player')
+    var d = e('#id-button-start')
+    var btn = d.querySelector('button')
+    bindEvent(btn, 'click', function() {
+        removeClassAll('hide')
+        btn.classList.remove('show')
+        btn.classList.add('hide')
+        bindAudioStatus(a)
+    })
+}
 var __main = function() {
     height()
     canvasHeight()
     audio()
+    bindButtonStart()
 }
 
 __main()

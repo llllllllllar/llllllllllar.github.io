@@ -2,6 +2,12 @@ html {
     overflow: hidden;
 }
 
+.float-clear::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
 .player-wrapper {
     border-radius: 15px;
     float: left;
@@ -9,14 +15,9 @@ html {
     padding: 0 1.8em;
     width: 20em;
 }
-.float-clear::after {
-    content: '';
-    display: block;
-    clear: both;
-}
 
 audio {
-    /* display: none; */
+    display: none;
 }
 .canvas {
     border-radius: 15px;
@@ -140,4 +141,8 @@ audio {
     .information {
         font-size: 1.2em;
     }
+}
+
+.hide {
+    display: none;
 }
