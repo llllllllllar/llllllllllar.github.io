@@ -4,12 +4,30 @@ html {
 
 .player-wrapper {
     border-radius: 15px;
-    /* text-align: center; */
-    background: rgba(0,0,0,0.45);
-    padding: 0 20px;
-    width: 450px;
+    float: left;
+    margin-top: 10px;
+    padding: 0 1.8em;
+    width: 20em;
+}
+.float-clear::after {
+    content: '';
+    display: block;
+    clear: both;
 }
 
+audio {
+    /* display: none; */
+}
+.canvas {
+    border-radius: 15px;
+    float: left;
+    /* text-align: center; */
+    background: rgba(0, 0, 0, 0.8);
+    margin-top: 10px;
+    padding: 0 1.8em;
+    width: 20em;
+    z-index: -1;
+}
 .icon {
    width: 1.5em; height: 1.5em;
    vertical-align: -0.15em;
@@ -17,6 +35,109 @@ html {
    overflow: hidden;
 }
 
+
+.progress {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    margin-bottom: 15px;
+}
+.progress .bar {
+    position: relative;
+    width: 0%;
+    height: 5px;
+    background: rgba(239, 179, 203, 0.9);
+}
+
+
+.information {
+    display: block;
+    font-size: 1em;
+    color: rgba(239, 179, 203, 0.9);
+}
+.song-name {
+    display: inline-block;
+}
+
+.time {
+    display: inline-block;
+}
+
+
 .controller {
-    font-size: 16px;
+    display: block;
+    font-size: 1em;
+    color: rgba(239, 179, 203, 0.9);
+}
+.controller div {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.song-list {
+    display: block;
+    position: relative;
+    /* width: 100%; */
+    margin-top: 2em;
+    font-size: 1em;
+    color: rgba(229, 124, 0, 1);
+}
+
+.song-wrapper {
+    display: block;
+    margin: 3px;
+}
+.song {
+    padding: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+.song:hover {
+    animation: colorAnim 1s infinite;
+}
+
+@keyframes colorAnim {
+    0% {
+        color: rgba(239, 179, 203, 0.9);
+    }
+    15% {
+        color: rgba(229, 124, 0, 1);
+    }
+    54% {
+        color: rgba(239, 179, 203, 0.9);
+    }
+    100% {
+        color: rgba(229, 124, 0, 1);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .player-wrapper {
+        width: 700px;
+    }
+    .canvas {
+        width: 700px;
+    }
+    .information {
+        display: inline-block;
+    }
+    .song-list {
+        text-align: right;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .player-wrapper {
+        width: 1000px;
+    }
+    .canvas {
+        width: 1000px;
+    }
+    .controller {
+        display: inline-block;
+        float: right;
+        font-size: 1.2em;
+    }
+    .information {
+        font-size: 1.2em;
+    }
 }

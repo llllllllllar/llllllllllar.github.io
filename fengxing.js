@@ -114,13 +114,14 @@ var closest = function(element, selector) {
     }
 }
 
-var initElementHeight = function(element) {
+var initElementHeight = function(element, denominator = 1) {
     var intViewportHeight = window.innerHeight
-    element.style.height = `${intViewportHeight}px`
+    log('denominator', denominator)
+    element.style.height = `${intViewportHeight / denominator}px`
 }
 
-var elementHeight = function(element) {
-    initElementHeight(element)
+var elementHeight = function(element, denominator = 1) {
+    initElementHeight(element, denominator)
     window.onresize = resize
     function resize() {
         initElementHeight(element)

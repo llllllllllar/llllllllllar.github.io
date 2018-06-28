@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>简单测试</title>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="400">您的浏览器不支持canvas标签</canvas>
+        <audio id="myAudio" crossOrigin="anonymous" src="2.mp3" controls="controls" >您的浏览器不支持audio标签</audio>
+        <script type="text/javascript">
+        var log = console.log.bind(console)
+
+        window.onload = function () {
+            try {
+                var audioCtx = new (window.AudioContext ||window.webkitAudioContext)();
+            } catch (err) {
+                alert('!Your browser does not support Web Audio API!');
+            };
+            var myCanvas = document.getElementById('myCanvas'),
+                canvasCtx = myCanvas.getContext("2d"),
+                myAudio = document.getElementById("myAudio"),
+                source = audioCtx.createMediaElementSource(myAudio),
+                analyser = audioCtx.createAnalyser();
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+            myAudio.oncanplaythrough = function draw () {
+                var cwidth = myCanvas.width,
+                    cheight = myCanvas.height,
+                    array = new Uint8Array(128);
+                analyser.getByteFrequencyData(array);
+                canvasCtx.clearRect(0, 0, cwidth, cheight);
+                // log('array = new Uint8Array(128)', array)
+                for (var i = 0; i < array.length; i++) {
+
+                    canvasCtx.fillRect(i * 3, cheight - array[i], 2, cheight);
+                }
+                requestAnimationFrame(draw);
+            };
+        };
+        </script>
+    </body>
+</html>

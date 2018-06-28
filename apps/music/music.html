@@ -14,48 +14,68 @@
                 <div class="menu-item"><a href="/blogs/blogs.html">博客</a></div>
                 <div class="menu-item"><a href="/apps/apps.html">应用</a></div>
             </nav>
-            <div id="id-player-wrapper" class="player-wrapper fengxing-horizontal-center">
-                <div id="id-song-list">
-                    <div id="id-song-0" class="song" data-path="1.mp3">1.mp3</div>
-                    <div id="id-song-1" class="song" data-path="2.mp3">2.mp3</div>
-                    <div id="id-song-2" class="song" data-path="3.mp3">3.mp3</div>
-                </div>
+            <div id="id-player-wrapper" class="player-wrapper fengxing-horizontal-center float-clear">
                 <audio id="id-audio-player" controls="controls" src="1.mp3"></audio>
+                <div id="id-song-progress" class='progress'>
+                    <div class='bar'></div>
+                </div>
+                <div id="id-song-information" class="information">
+                    <div class="song-name">Dmitri Shostakovich - Waltz No. 2</div>
+                    <div class="time">
+                        <span id="id-span-current">
+                            &nbsp;&nbsp;<span>00:00</span>&nbsp;
+                        </span>
+                        <span id="id-span-duration">
+                            /&nbsp;<span>00:00</span>
+                        </span>
+                    </div>
+                </div>
                 <div id="id-song-controller" class="controller">
-                    <span id="id-play-mode" class="single">
+                    <div id="id-play-mode" class="loop">
                         <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-single"></use>
+                            <use xlink:href="#icon-loop"></use>
                         </svg>
-                    </span>
-                    <span id="id-button-play" class="play-pause">
+                    </div>
+                    <div id="id-button-last" class="player-last">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-last"></use>
+                        </svg>
+                    </div>
+                    <div id="id-button-play" class="play-pause">
                         <svg class="icon" aria-hidden="true">
                             <use xlink:href="#icon-pause"></use>
                         </svg>
-                    </span>
-                    <span id="id-music-sound" class="sound">
+                    </div>
+                    <div id="id-button-next" class="player-next">
                         <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-sound"></use>
+                            <use xlink:href="#icon-next"></use>
                         </svg>
-                    </span>
-                    <span class="play-time">
-                        <span id="id-span-current">
-                            <span>
-                                00:00
-                            </span>
-                        </span>
-                        <span id="id-span-duration">
-                            /
-                            <span>
-                                00:00
-                            </span>
-                        </span>
-                    </span>
-
+                    </div>
+                    <div id="id-music-sound" class="sound">
+                        <div id="id-icon-sound" class="sound-icon">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-sound"></use>
+                            </svg>
+                        </div>
+                        <div><input id="id-input-sound" class="sound-range" type="range" value="50"></div>
+                    </div>
+                </div>
+                <div id="id-song-list" class="song-list">
+                    <div class="song-wrapper">
+                        <div id="id-song-0" class="song" data-path="1.mp3">Dmitri Shostakovich - Waltz No. 2</div>
+                    </div>
+                    <div class="song-wrapper">
+                        <div id="id-song-1" class="song" data-path="2.mp3">Suite for solo cello No. 1</div>
+                    </div>
+                    <div class="song-wrapper">
+                        <div id="id-song-2" class="song" data-path="3.mp3">Villa-Lobos - Tristorosa (Arnaldo Estrella, piano)</div>
+                    </div>
 
                 </div>
             </div>
+            <canvas id="id-canvas-background" class="canvas fengxing-horizontal-center"></canvas>
         </div>
-        <script src="https://at.alicdn.com/t/font_714440_mxznxqnbts.js"></script>
+        <script src="https://at.alicdn.com/t/font_714440_irt5i6egohr.js"></script>
         <script src="/fengxing.js" charset="utf-8"></script>
         <script src="music.js" charset="utf-8"></script>
     </body>

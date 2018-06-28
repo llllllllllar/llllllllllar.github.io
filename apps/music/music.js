@@ -1,3 +1,8 @@
+var canvasHeight = function() {
+    var e1 = e('#id-canvas-background')
+    elementHeight(e1, 1.5)
+}
+
 var templateMode = function(mode) {
     var t = `
         <svg class="icon" aria-hidden="true">
@@ -19,12 +24,14 @@ var allSongs = function() {
     return songs
 }
 
-var bindSwitchSongs = function(audio) {
+var switchSong = function(audio) {
+    var a = audio
+    var name = e('.song-name')
     bindAll('.song', 'click', function() {
         var self = event.target
         var path = self.dataset.path
-        audio.src = path
-        bindEventCanplay(audio)
+        a.src = path
+        name.innerHTML = self.innerHTML
     })
 }
 
@@ -43,6 +50,14 @@ var loopPlay = function(audio) {
     return songs[index]
 }
 
+var loopPlayLast = function(audio) {
+    var songs = allSongs()
+    var src = audio.src.split('/').slice(-1)[0]
+    var index = songs.indexOf(src)
+    index = (index + songs.length - 1) % songs.length
+    return songs[index]
+}
+
 var choice = function(array) {
     var a = Math.random()
     a = a * array.length
@@ -50,50 +65,21 @@ var choice = function(array) {
     return array[index]
 }
 
-var shufflePlay = function() {
+var eliminateElement = function(array, element) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] == element) {
+            array.splice(i, 1)
+        }
+    }
+    return array
+}
+
+var shufflePlay = function(audio) {
     var songs = allSongs()
-    var s = choice(songs)
-    return s
-}
-
-var bindPlayMode = function() {
-    var btn = e('#id-play-mode')
-    bindEvent(btn, 'click', function(event) {
-        var mode = ''
-        if (btn.classList.contains('single')) {
-            mode = 'loop'
-            btn.classList.remove('single')
-            btn.classList.toggle('loop')
-        } else if (btn.classList.contains('loop')) {
-            mode = 'shuffle'
-            btn.classList.remove('loop')
-            btn.classList.toggle('shuffle')
-        } else if (btn.classList.contains('shuffle')) {
-            mode = 'single'
-            btn.classList.remove('shuffle')
-            btn.classList.toggle('single')
-        }
-        btn.innerHTML = templateMode(mode)
-    })
-}
-
-var bindMusicSound = function(audio) {
-    var btn = e('#id-music-sound')
-    bindEvent(btn, 'click', function(event) {
-        var mode = ''
-        if (btn.classList.contains('sound')) {
-            mode = 'mute'
-            btn.classList.remove('sound')
-            btn.classList.toggle('mute')
-            audio.volume = 0
-        } else if (btn.classList.contains('mute')) {
-            mode = 'sound'
-            btn.classList.remove('mute')
-            btn.classList.toggle('sound')
-            audio.volume = 1
-        }
-        btn.innerHTML = templateMode(mode)
-    })
+    var src = audio.src.split('/').slice(-1)[0]
+    var newSongs = eliminateElement(songs, src)
+    var c = choice(newSongs)
+    return c
 }
 
 var timeFormat = function(time) {
@@ -108,27 +94,53 @@ var timeFormat = function(time) {
 
 var showDuration = function(audio){
     var element = e('#id-span-duration')
-    audio.addEventListener('canplay', function() {
-        var span = element.querySelector('span')
-        var d = timeFormat(audio.duration)
-        span.innerHTML = d
+    var span = element.querySelector('span')
+    var d = timeFormat(audio.duration)
+    span.innerHTML = d
+}
+
+var nextSong = function(audio) {
+    var btn = e('#id-play-mode')
+    if (btn.classList.contains('single')) {
+        var song = cycleSingle(audio)
+    } else if (btn.classList.contains('loop')) {
+        var song = loopPlay(audio)
+    } else if (btn.classList.contains('shuffle')) {
+        var song = shufflePlay(audio)
+    }
+    return song
+}
+
+var lastSong = function(audio) {
+    var btn = e('#id-play-mode')
+    if (btn.classList.contains('single')) {
+        var song = cycleSingle(audio)
+    } else if (btn.classList.contains('loop')) {
+        var song = loopPlayLast(audio)
+    } else if (btn.classList.contains('shuffle')) {
+        var song = shufflePlay(audio)
+    }
+    return song
+}
+
+var bindCurrentTime = function(audio) {
+    var element = e('#id-span-current')
+    var span = element.querySelector('span')
+    bindEvent(audio, 'timeupdate', function(event) {
+        var currentTime = Math.floor(audio.currentTime)
+        var time = timeFormat(currentTime)
+        span.innerHTML = time
     })
 }
 
-var showCurrentTime = function(audio) {
-    var element = e('#id-span-current')
-    setInterval(function() {
-        var span = element.querySelector('span')
-        var c = timeFormat(audio.currentTime)
-        span.innerHTML = c
-    }, 1000)
+var progressBar = function(currentTime, duration) {
+    var percentage = Math.floor((currentTime / duration) * 100) + "%"
+    return percentage
 }
 
-var bindButtonPlay = function(audio) {
-    var btn = e("#id-button-play")
-    bindEvent(btn, 'click', function(event) {
-        // log('enter the play button event?')
-        var mode = ''
+var buttonPlay = function(audio, button, buttonEventName) {
+    var mode = 'pause'
+    if (buttonEventName == 'click') {
         if (audio.paused) {
             mode = 'pause'
             audio.play()
@@ -136,58 +148,133 @@ var bindButtonPlay = function(audio) {
             mode = 'play'
             audio.pause()
         }
+        button.innerHTML = templateMode(mode)
+    }
+    if (buttonEventName == 'timeupdate') {
+        if (audio.paused) {
+            mode = 'play'
+        }
+        // } else {
+        //     mode = 'pause'
+        // }
+        button.innerHTML = templateMode(mode)
+    }
+}
+
+var bindButtonPlay = function(audio) {
+    var btn = e("#id-button-play")
+    bindEvent(btn, 'click', function(event) {
+        buttonPlay(audio, btn, 'click')
+    })
+}
+
+var bindTimeUpdate = function(audio) {
+    var p = e('#id-song-progress')
+    var b = p.querySelector('.bar')
+    var btn = e("#id-button-play")
+    bindEvent(audio, 'timeupdate', function(event) {
+        var c = audio.currentTime
+        var d = audio.duration
+        var p = progressBar(c, d)
+        b.style.width = p
+        buttonPlay(audio, btn, 'timeupdate')
+    })
+}
+
+var bindMusicSound = function(audio) {
+    var btn = e('#id-music-sound')
+    var btnIcon = btn.querySelector('#id-icon-sound')
+    var btnRange = btn.querySelector('#id-input-sound')
+    btnRange.style.display = 'none'
+    bindEvent(btnIcon, 'click', function(event) {
+        if (btnRange.style.display == 'none') {
+            btnRange.style.display = 'inline'
+        } else if (btnRange.style.display == 'inline') {
+            btnRange.style.display = 'none'
+        }
+    })
+    bindEvent(btnRange, 'input', function(event) {
+        var input = event.target
+        audio.volume = Number(input.value / 100)
+        var mode = 'sound'
+        if (audio.volume == 0) {
+            mode = 'mute'
+        }
+        btnIcon.innerHTML = templateMode(mode)
+    })
+}
+
+var bindPlayMode = function() {
+    var btn = e('#id-play-mode')
+    bindEvent(btn, 'click', function(event) {
+        if (btn.classList.contains('single')) {
+            var mode = 'loop'
+            btn.classList.remove('single')
+            btn.classList.toggle('loop')
+        } else if (btn.classList.contains('loop')) {
+            var mode = 'shuffle'
+            btn.classList.remove('loop')
+            btn.classList.toggle('shuffle')
+        } else if (btn.classList.contains('shuffle')) {
+            var mode = 'single'
+            btn.classList.remove('shuffle')
+            btn.classList.toggle('single')
+        }
         btn.innerHTML = templateMode(mode)
     })
 }
 
-var bindEventCanplay = function(audio) {
-    audio.addEventListener('canplay', function() {
-        // log('音乐加载完毕', audio.duration)
-        audio.play()
-    })
-}
-
-var bindEventEnd = function(audio) {
-    var btn = e('#id-play-mode')
-    audio.addEventListener('ended', function() {
-        if (btn.classList.contains('single')) {
-            // 单曲循环
-            var song = cycleSingle(audio)
-        } else if (btn.classList.contains('loop')) {
-            // 顺序播放
-            var song = loopPlay(audio)
-        } else if (btn.classList.contains('shuffle')) {
-            // 随机播放
-            var song = shufflePlay()
-        }
-        // var song = playMode()
-        log('song', song)
+var bindButtonNext = function(audio) {
+    var btn = e('#id-button-next')
+    bindEvent(btn, 'click', function(event) {
+        var song = nextSong(audio)
         audio.src = song
     })
 }
 
-var time = function(audio) {
-    showDuration(audio)
-    showCurrentTime(audio)
+var bindButtonLast = function(audio) {
+    var btn = e('#id-button-last')
+    bindEvent(btn, 'click', function(event) {
+        var song = lastSong(audio)
+        audio.src = song
+    })
 }
 
-var bindAudioEvents = function(audio) {
+var bindEventCanplay = function(audio) {
+    bindEvent(audio, 'canplay', function(event) {
+        switchSong(audio)
+        audio.play()
+        showDuration(audio)
+        bindTimeUpdate(audio)
+    })
+}
+
+var bindEventEnd = function(audio) {
+    bindEvent(audio, 'ended', function(event) {
+        var song = nextSong(audio)
+        audio.src = song
+    })
+}
+
+var bindEvents = function(audio) {
     bindEventCanplay(audio)
-    bindButtonPlay(audio)
     bindEventEnd(audio)
     bindPlayMode()
     bindMusicSound(audio)
-    bindSwitchSongs(audio)
+    bindButtonNext(audio)
+    bindButtonLast(audio)
+    bindButtonPlay(audio)
+    bindCurrentTime(audio)
 }
 
 var audio = function() {
     var a = e('#id-audio-player')
-    time(a)
-    bindAudioEvents(a)
+    bindEvents(a)
 }
 
 var __main = function() {
     height()
+    canvasHeight()
     audio()
 }
 
