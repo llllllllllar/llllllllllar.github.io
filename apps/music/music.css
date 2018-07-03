@@ -22,9 +22,6 @@ audio {
 }
 .canvas {
     border-radius: 15px;
-    /* float: left; */
-    /* text-align: center; */
-    /* background: rgba(0, 0, 0, 0.75); */
     margin-top: 10px;
     width: 70%;
     height: 100px;
@@ -111,34 +108,3 @@ audio {
         color: rgba(229, 124, 0, 1);
     }
 }
-
-/* @media screen and (min-width: 768px) {
-    .player-wrapper {
-        width: 700px;
-    }
-    .canvas {
-        width: 700px;
-    }
-    .information {
-        display: inline-block;
-    }
-    .song-list {
-        text-align: right;
-    }
-}
-@media screen and (min-width: 1024px) {
-    .player-wrapper {
-        width: 1000px;
-    }
-    .canvas {
-        width: 1000px;
-    }
-    .controller {
-        display: inline-block;
-        float: right;
-        font-size: 1.2em;
-    }
-    .information {
-        font-size: 1.2em;
-    }
-} */

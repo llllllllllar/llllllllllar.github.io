@@ -261,6 +261,7 @@ var audio = function() {
 var __main = function() {
     height()
     audio()
+    audioVisualized()
 }
 
 __main()
