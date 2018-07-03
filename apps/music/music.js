@@ -11,35 +11,47 @@ var allSongs = function() {
     var l = e('#id-song-list')
     var s = l.querySelectorAll('.song')
     var songs = []
-    var index = 0
     for (var i = 0; i < s.length; i++) {
-        var d = s[i].dataset.path
-        songs.push(d)
+        var song = {}
+        song.index = i
+        song.path = s[i].dataset.path
+        song.name = s[i].innerHTML
+        songs.push(song)
     }
+    log('数组songs', songs)
     return songs
 }
 
 var cycleSingle = function(audio) {
     var songs = allSongs()
     var src = audio.src.split('/').slice(-1)[0]
-    var index = songs.indexOf(src)
-    return songs[index]
+    for (var i = 0; i < songs.length; i++) {
+        if (songs[i].path == src) {
+            return songs[i]
+        }
+    }
 }
 
 var loopPlay = function(audio) {
     var songs = allSongs()
     var src = audio.src.split('/').slice(-1)[0]
-    var index = songs.indexOf(src)
-    index = (index + 1) % songs.length
-    return songs[index]
+    for (var i = 0; i < songs.length; i++) {
+        if (songs[i].path == src) {
+            var index = (i + 1) % songs.length
+            return songs[index]
+        }
+    }
 }
 
 var loopPlayLast = function(audio) {
     var songs = allSongs()
     var src = audio.src.split('/').slice(-1)[0]
-    var index = songs.indexOf(src)
-    index = (index + songs.length - 1) % songs.length
-    return songs[index]
+    for (var i = 0; i < songs.length; i++) {
+        if (songs[i].path == src) {
+            var index = (i + songs.length - 1) % songs.length
+            return songs[index]
+        }
+    }
 }
 
 var choice = function(array) {
@@ -49,21 +61,16 @@ var choice = function(array) {
     return array[index]
 }
 
-var eliminateElement = function(array, element) {
-    for (var i = 0; i < array.length; i++) {
-        if (array[i] == element) {
-            array.splice(i, 1)
-        }
-    }
-    return array
-}
-
 var shufflePlay = function(audio) {
     var songs = allSongs()
     var src = audio.src.split('/').slice(-1)[0]
-    var newSongs = eliminateElement(songs, src)
-    var c = choice(newSongs)
-    return c
+    for (var i = 0; i < songs.length; i++) {
+        if (songs[i].path == src) {
+            songs.splice(i, 1)
+            var song = choice(songs)
+            return song
+        }
+    }
 }
 
 var timeFormat = function(time) {
@@ -199,18 +206,22 @@ var bindPlayMode = function() {
 
 var bindButtonNext = function(audio) {
     var btn = e('#id-button-next')
+    var name = e('.song-name')
     bindEvent(btn, 'click', function(event) {
         var song = nextSong(audio)
-        audio.src = song
+        audio.src = song.path
+        name.innerHTML = song.name
         buttonPlay(audio)
     })
 }
 
 var bindButtonLast = function(audio) {
     var btn = e('#id-button-last')
+    var name = e('.song-name')
     bindEvent(btn, 'click', function(event) {
         var song = lastSong(audio)
-        audio.src = song
+        audio.src = song.path
+        name.innerHTML = song.name
         buttonPlay(audio)
     })
 }
@@ -222,6 +233,7 @@ var bindswitchSong = function(audio) {
         var path = self.dataset.path
         audio.src = path
         name.innerHTML = self.innerHTML
+        log('name.innerHTML', name.innerHTML)
         buttonPlay(audio)
     })
 }
