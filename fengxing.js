@@ -116,7 +116,6 @@ var closest = function(element, selector) {
 
 var initElementHeight = function(element, denominator = 1) {
     var intViewportHeight = window.innerHeight
-    log('denominator', denominator)
     element.style.height = `${intViewportHeight / denominator}px`
 }
 

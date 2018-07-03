@@ -14,6 +14,7 @@ html {
     margin-top: 10px;
     padding: 0 1.8em;
     width: 20em;
+    background: rgba(0, 0, 0, 0.75);
 }
 
 audio {
@@ -21,12 +22,12 @@ audio {
 }
 .canvas {
     border-radius: 15px;
-    float: left;
+    /* float: left; */
     /* text-align: center; */
-    background: rgba(0, 0, 0, 0.8);
+    /* background: rgba(0, 0, 0, 0.75); */
     margin-top: 10px;
-    padding: 0 1.8em;
-    width: 20em;
+    width: 70%;
+    height: 100px;
     z-index: -1;
 }
 .icon {
@@ -78,8 +79,7 @@ audio {
 .song-list {
     display: block;
     position: relative;
-    /* width: 100%; */
-    margin-top: 2em;
+    margin-top: 1em;
     font-size: 1em;
     color: rgba(229, 124, 0, 1);
 }
@@ -112,7 +112,7 @@ audio {
     }
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
     .player-wrapper {
         width: 700px;
     }
@@ -141,8 +141,4 @@ audio {
     .information {
         font-size: 1.2em;
     }
-}
-
-.hide {
-    display: none;
-}
+} */

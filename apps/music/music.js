@@ -1,8 +1,3 @@
-var canvasHeight = function() {
-    var e1 = e('#id-canvas-background')
-    elementHeight(e1, 1.5)
-}
-
 var templateMode = function(mode) {
     var t = `
         <svg class="icon" aria-hidden="true">
@@ -22,17 +17,6 @@ var allSongs = function() {
         songs.push(d)
     }
     return songs
-}
-
-var switchSong = function(audio) {
-    var a = audio
-    var name = e('.song-name')
-    bindAll('.song', 'click', function() {
-        var self = event.target
-        var path = self.dataset.path
-        a.src = path
-        name.innerHTML = self.innerHTML
-    })
 }
 
 var cycleSingle = function(audio) {
@@ -138,33 +122,23 @@ var progressBar = function(currentTime, duration) {
     return percentage
 }
 
-var buttonPlay = function(audio, button, buttonEventName) {
+var buttonPlay = function(audio) {
+    var button = e("#id-button-play")
     var mode = 'pause'
-    if (buttonEventName == 'click') {
-        if (audio.paused) {
-            mode = 'pause'
-            audio.play()
-        } else {
-            mode = 'play'
-            audio.pause()
-        }
-        button.innerHTML = templateMode(mode)
+    if (audio.paused) {
+        mode = 'pause'
+        audio.play()
+    } else {
+        mode = 'play'
+        audio.pause()
     }
-    if (buttonEventName == 'timeupdate') {
-        if (audio.paused) {
-            mode = 'play'
-        }
-        // } else {
-        //     mode = 'pause'
-        // }
-        button.innerHTML = templateMode(mode)
-    }
+    button.innerHTML = templateMode(mode)
 }
 
 var bindButtonPlay = function(audio) {
     var btn = e("#id-button-play")
     bindEvent(btn, 'click', function(event) {
-        buttonPlay(audio, btn, 'click')
+        buttonPlay(audio, btn)
     })
 }
 
@@ -177,7 +151,6 @@ var bindTimeUpdate = function(audio) {
         var d = audio.duration
         var p = progressBar(c, d)
         b.style.width = p
-        buttonPlay(audio, btn, 'timeupdate')
     })
 }
 
@@ -229,6 +202,7 @@ var bindButtonNext = function(audio) {
     bindEvent(btn, 'click', function(event) {
         var song = nextSong(audio)
         audio.src = song
+        buttonPlay(audio)
     })
 }
 
@@ -237,15 +211,26 @@ var bindButtonLast = function(audio) {
     bindEvent(btn, 'click', function(event) {
         var song = lastSong(audio)
         audio.src = song
+        buttonPlay(audio)
+    })
+}
+
+var bindswitchSong = function(audio) {
+    var name = e('.song-name')
+    bindAll('.song', 'click', function() {
+        var self = event.target
+        var path = self.dataset.path
+        audio.src = path
+        name.innerHTML = self.innerHTML
+        buttonPlay(audio)
     })
 }
 
 var bindEventCanplay = function(audio) {
     bindEvent(audio, 'canplay', function(event) {
-        audio.play()
-        switchSong(audio)
         showDuration(audio)
         bindTimeUpdate(audio)
+        audio.play()
     })
 }
 
@@ -256,41 +241,26 @@ var bindEventEnd = function(audio) {
     })
 }
 
-var bindAudioStatus = function(audio) {
+var bindEvents = function(audio) {
     bindEventCanplay(audio)
     bindEventEnd(audio)
-    bindCurrentTime(audio)
-}
-
-var bindAudioController = function(audio) {
     bindPlayMode()
+    bindswitchSong(audio)
+    bindButtonPlay(audio)
     bindMusicSound(audio)
     bindButtonNext(audio)
     bindButtonLast(audio)
-    bindButtonPlay(audio)
+    bindCurrentTime(audio)
 }
 
 var audio = function() {
     var a = e('#id-audio-player')
-    bindAudioController(a)
+    bindEvents(a)
 }
 
-var bindButtonStart = function() {
-    var a = e('#id-audio-player')
-    var d = e('#id-button-start')
-    var btn = d.querySelector('button')
-    bindEvent(btn, 'click', function() {
-        removeClassAll('hide')
-        btn.classList.remove('show')
-        btn.classList.add('hide')
-        bindAudioStatus(a)
-    })
-}
 var __main = function() {
     height()
-    canvasHeight()
     audio()
-    bindButtonStart()
 }
 
 __main()

@@ -16,10 +16,10 @@
             </nav>
             <div id="id-player-wrapper" class="player-wrapper fengxing-horizontal-center float-clear">
                 <audio id="id-audio-player" controls="controls" src="1.mp3"></audio>
-                <div id="id-song-progress" class='progress hide'>
+                <div id="id-song-progress" class='progress'>
                     <div class='bar'></div>
                 </div>
-                <div id="id-song-information" class="information hide">
+                <div id="id-song-information" class="information">
                     <div class="song-name">Dmitri Shostakovich - Waltz No. 2</div>
                     <div class="time">
                         <span id="id-span-current">
@@ -41,9 +41,9 @@
                             <use xlink:href="#icon-last"></use>
                         </svg>
                     </div>
-                    <div id="id-button-play" class="play-play">
+                    <div id="id-button-play" class="play-pause">
                         <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-play"></use>
+                            <use xlink:href="#icon-pause"></use>
                         </svg>
                     </div>
                     <div id="id-button-next" class="player-next">
@@ -60,7 +60,8 @@
                         <div><input id="id-input-sound" class="sound-range" type="range" value="50"></div>
                     </div>
                 </div>
-                <div id="id-song-list" class="song-list hide">
+                <canvas id="id-canvas-background" class="canvas"></canvas>
+                <div id="id-song-list" class="song-list">
                     <div class="song-wrapper">
                         <div id="id-song-0" class="song" data-path="1.mp3">Dmitri Shostakovich - Waltz No. 2</div>
                     </div>
@@ -72,17 +73,11 @@
                     </div>
 
                 </div>
-                <div id="id-button-start" class="click-start show">
-                    <button type="button" name="button">Click to Start</button>
-                </div>
-                <div id="id-music-loading" class="loading">
-
-                </div>
             </div>
-            <canvas id="id-canvas-background" class="canvas fengxing-horizontal-center"></canvas>
         </div>
-        <script src="https://at.alicdn.com/t/font_714440_irt5i6egohr.js"></script>
+        <script src="https://at.alicdn.com/t/font_714440_xt5bf3mzgw.js"></script>
         <script src="/fengxing.js" charset="utf-8"></script>
         <script src="music.js" charset="utf-8"></script>
+        <script src="musicCanvas.js" charset="utf-8"></script>
     </body>
 </html>
