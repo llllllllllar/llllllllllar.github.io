@@ -18,7 +18,6 @@ var allSongs = function() {
         song.name = s[i].innerHTML
         songs.push(song)
     }
-    log('数组songs', songs)
     return songs
 }
 
@@ -233,7 +232,6 @@ var bindswitchSong = function(audio) {
         var path = self.dataset.path
         audio.src = path
         name.innerHTML = self.innerHTML
-        log('name.innerHTML', name.innerHTML)
         buttonPlay(audio)
     })
 }
