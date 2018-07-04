@@ -91,10 +91,17 @@ audio {
     cursor: pointer;
 }
 .song:hover {
-    animation: colorAnim 1s infinite;
+    animation: songAnim 1s infinite;
+}
+.selected {
+    color: rgba(239, 179, 203, 0.9);
+    border-bottom: 1px solid rgba(239, 179, 203, 0.9);
+}
+.selected:hover {
+    animation: selectedAnim 1s infinite;
 }
 
-@keyframes colorAnim {
+@keyframes songAnim {
     0% {
         color: rgba(239, 179, 203, 0.9);
     }
@@ -106,5 +113,24 @@ audio {
     }
     100% {
         color: rgba(229, 124, 0, 1);
+    }
+}
+
+@keyframes selectedAnim {
+    0% {
+        color: rgba(229, 124, 0, 1);
+        border-bottom: 1px solid rgba(229, 124, 0, 1);
+    }
+    15% {
+        color: rgba(239, 179, 203, 0.9);
+        border-bottom: 1px solid rgba(239, 179, 203, 0.9);
+    }
+    54% {
+        color: rgba(229, 124, 0, 1);
+        border-bottom: 1px solid rgba(229, 124, 0, 1);
+    }
+    100% {
+        color: rgba(239, 179, 203, 0.9);
+        border-bottom: 1px solid rgba(239, 179, 203, 0.9);
     }
 }

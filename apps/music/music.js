@@ -206,6 +206,7 @@ var bindPlayMode = function() {
 var bindButtonNext = function(audio) {
     var btn = e('#id-button-next')
     var name = e('.song-name')
+    var selected = e('.selected')
     bindEvent(btn, 'click', function(event) {
         var song = nextSong(audio)
         audio.src = song.path
