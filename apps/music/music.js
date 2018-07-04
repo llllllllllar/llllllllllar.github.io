@@ -148,18 +148,25 @@ var buttonPlay = function(audio) {
     var mode = 'pause'
     if (audio.paused) {
         mode = 'pause'
-        audio.play()
     } else {
         mode = 'play'
-        audio.pause()
     }
     button.innerHTML = templateMode(mode)
+}
+
+var playPause = function(audio) {
+    if (audio.paused) {
+        audio.play()
+    } else {
+        audio.pause()
+    }
 }
 
 var bindButtonPlay = function(audio) {
     var btn = e("#id-button-play")
     bindEvent(btn, 'click', function(event) {
         buttonPlay(audio, btn)
+        playPause(audio)
     })
 }
 
@@ -255,24 +262,12 @@ var bindswitchSong = function(audio) {
 }
 
 var bindEventCanplay = function(audio) {
-    var player = e('#id-player-wrapper')
-    var loader = e('#id-loader-box')
     bindEvent(audio, 'canplay', function(event) {
-        loader.classList.toggle('hide')
-        player.classList.remove('hide')
         showDuration(audio)
         bindTimeUpdate(audio)
+        audio.play()
     })
 }
-
-// var bindEventCanplayThrough = function(audio) {
-//     var player = e('#id-player-wrapper')
-//     var loader = e('#id-loader-box')
-//     bindEvent(audio, 'canplaythrough', function(event) {
-//         loader.classList.toggle('hide')
-//         player.classList.remove('hide')
-//     })
-// }
 
 var bindEventEnd = function(audio) {
     bindEvent(audio, 'ended', function(event) {
@@ -284,16 +279,15 @@ var bindEventEnd = function(audio) {
 }
 
 var bindAudioEvents = function(audio) {
-    // bindEventCanplayThrough(audio)
     bindEventCanplay(audio)
     bindEventEnd(audio)
     bindPlayMode()
-    bindswitchSong(audio)
     bindButtonPlay(audio)
     bindMusicSound(audio)
+    bindCurrentTime(audio)
+    bindswitchSong(audio)
     bindButtonNext(audio)
     bindButtonLast(audio)
-    bindCurrentTime(audio)
 }
 
 var audio = function() {
