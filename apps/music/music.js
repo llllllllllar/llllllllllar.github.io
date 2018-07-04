@@ -255,11 +255,24 @@ var bindswitchSong = function(audio) {
 }
 
 var bindEventCanplay = function(audio) {
+    var player = e('#id-player-wrapper')
+    var loader = e('#id-loader-box')
     bindEvent(audio, 'canplay', function(event) {
+        loader.classList.toggle('hide')
+        player.classList.remove('hide')
         showDuration(audio)
         bindTimeUpdate(audio)
     })
 }
+
+// var bindEventCanplayThrough = function(audio) {
+//     var player = e('#id-player-wrapper')
+//     var loader = e('#id-loader-box')
+//     bindEvent(audio, 'canplaythrough', function(event) {
+//         loader.classList.toggle('hide')
+//         player.classList.remove('hide')
+//     })
+// }
 
 var bindEventEnd = function(audio) {
     bindEvent(audio, 'ended', function(event) {
@@ -270,7 +283,8 @@ var bindEventEnd = function(audio) {
     })
 }
 
-var bindEvents = function(audio) {
+var bindAudioEvents = function(audio) {
+    // bindEventCanplayThrough(audio)
     bindEventCanplay(audio)
     bindEventEnd(audio)
     bindPlayMode()
@@ -284,7 +298,7 @@ var bindEvents = function(audio) {
 
 var audio = function() {
     var a = e('#id-audio-player')
-    bindEvents(a)
+    bindAudioEvents(a)
 }
 
 var __main = function() {
