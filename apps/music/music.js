@@ -113,6 +113,21 @@ var lastSong = function(audio) {
     return song
 }
 
+var songSelected = function(audio) {
+    var sel = e('.selected')
+    var l = e('#id-song-list')
+    var s = l.querySelectorAll('.song')
+    var src = audio.src.split('/').slice(-1)[0]
+    if (!(sel.dataset.path == audio.src)) {
+        for (var i = 0; i < s.length; i++) {
+            if (s[i].dataset.path == src) {
+                sel.classList.remove('selected')
+                s[i].classList.toggle('selected')
+            }
+        }
+    }
+}
+
 var bindCurrentTime = function(audio) {
     var element = e('#id-span-current')
     var span = element.querySelector('span')
@@ -206,11 +221,11 @@ var bindPlayMode = function() {
 var bindButtonNext = function(audio) {
     var btn = e('#id-button-next')
     var name = e('.song-name')
-    // var selected = e('.selected')
     bindEvent(btn, 'click', function(event) {
         var song = nextSong(audio)
         audio.src = song.path
         name.innerHTML = song.name
+        songSelected(audio)
         buttonPlay(audio)
     })
 }
@@ -222,6 +237,7 @@ var bindButtonLast = function(audio) {
         var song = lastSong(audio)
         audio.src = song.path
         name.innerHTML = song.name
+        songSelected(audio)
         buttonPlay(audio)
     })
 }
@@ -233,6 +249,7 @@ var bindswitchSong = function(audio) {
         var path = self.dataset.path
         audio.src = path
         name.innerHTML = self.innerHTML
+        songSelected(audio)
         buttonPlay(audio)
     })
 }
@@ -241,14 +258,15 @@ var bindEventCanplay = function(audio) {
     bindEvent(audio, 'canplay', function(event) {
         showDuration(audio)
         bindTimeUpdate(audio)
-        // audio.play()
     })
 }
 
 var bindEventEnd = function(audio) {
     bindEvent(audio, 'ended', function(event) {
         var song = nextSong(audio)
-        audio.src = song
+        audio.src = song.path
+        songSelected(audio)
+        audio.play()
     })
 }
 

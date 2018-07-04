@@ -18,7 +18,7 @@ html {
 }
 
 audio {
-    display: none;
+    /* display: none; */
 }
 .canvas {
     border-radius: 15px;
@@ -93,13 +93,13 @@ audio {
 .song:hover {
     animation: songAnim 1s infinite;
 }
-/* .selected {
+.selected {
     color: rgba(239, 179, 203, 0.9);
     border-bottom: 1px solid rgba(239, 179, 203, 0.9);
 }
 .selected:hover {
     animation: selectedAnim 1s infinite;
-} */
+}
 
 @keyframes songAnim {
     0% {
