@@ -17,7 +17,7 @@ html {
 }
 
 audio {
-    /* display: none; */
+    display: none;
 }
 .canvas {
     border-radius: 15px;
@@ -100,55 +100,6 @@ audio {
     animation: selectedAnim 1s infinite;
 }
 
-.loader-box {
-    border-radius: 15px;
-    margin-top: 10px;
-    padding: 0 1.8em;
-    width: 20em;
-    height: 20em;
-    background: rgba(0, 0, 0, 0.9);
-}
-
-.loader {
-    display: block;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: rgba(239, 179, 203, 1);
-    animation: loaderAnim 2s linear infinite;
-}
-.loader:before {
-    content: "";
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: rgba(255, 255, 255, 0.8);
-    animation: loaderAnim 3s linear infinite;
-}
-.loader:after {
-    content: "";
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: rgba(229, 124, 0, 1);
-    animation: loaderAnim 1.5s linear infinite;
-}
-.hide {
-    display: none;
-}
 @keyframes songAnim {
     0% {
         color: rgba(239, 179, 203, 0.9);
@@ -180,14 +131,5 @@ audio {
     100% {
         color: rgba(239, 179, 203, 0.9);
         border-bottom: 1px solid rgba(239, 179, 203, 0.9);
-    }
-}
-
-@keyframes loaderAnim {
-    0%   {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
     }
 }
