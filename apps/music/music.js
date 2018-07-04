@@ -241,7 +241,7 @@ var bindEventCanplay = function(audio) {
     bindEvent(audio, 'canplay', function(event) {
         showDuration(audio)
         bindTimeUpdate(audio)
-        audio.play()
+        // audio.play()
     })
 }
 
