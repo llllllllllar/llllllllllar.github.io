@@ -156,7 +156,8 @@ var buttonPlay = function(audio) {
 
 var playPause = function(audio) {
     if (audio.paused) {
-        audio.play()
+        setTimeout(() => audio.play() , 0)
+        // audio.play()
     } else {
         audio.pause()
     }
