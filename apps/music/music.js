@@ -155,7 +155,7 @@ var buttonPlay = function(audio) {
 }
 
 var playPause = function(audio) {
-    if (audio.readystate == 4 && audio.paused) {
+    if (audio.readyState == 4 && audio.paused) {
         audio.play()
     } else {
         audio.pause()
