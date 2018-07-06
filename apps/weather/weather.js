@@ -11,7 +11,7 @@ var initElementWidth = (element) => {
 var weatherWidth = () => {
     var e1 = e('#main')
     var e2 = e('#weather')
-    var e3 = e('#nav-box')
+    var e3 = e('#id-nav-box')
     elementWidth(e1)
     elementWidth(e2)
     elementWidth(e3)
