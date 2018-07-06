@@ -146,7 +146,7 @@ var progressBar = function(currentTime, duration) {
 var buttonPlay = function(audio) {
     var button = e("#id-button-play")
     var mode = 'pause'
-    if (audio.paused) {
+    if (audio.readyState == 4 && audio.paused) {
         mode = 'pause'
     } else {
         mode = 'play'
