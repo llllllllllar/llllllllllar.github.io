@@ -93,21 +93,21 @@ var templatePuzzle = function(n) {
             var m = l[j]
             if (m == 9) {
                 var t2 = `
-                    <div id="id-mines-col-${j}" class="mines-col mines-boom mask" data-col=${j}>
+                    <div class="mines-col mines-boom mask" data-xy=${i}-${j}>
                         <div class="mines-cell" data-num=${m}>&nbsp;</div>
                         <div class="mines-flag"><img src="minesweeper_pics/flag.svg" alt="flag" class="img-flag hide"></div>
                     </div>
                 `
             } else if (m == 0) {
                 var t2 = `
-                    <div id="id-mines-col-${j}" class="mines-col mask" data-col=${j}>
+                    <div class="mines-col mask" data-xy=${i}-${j}>
                         <div class="mines-cell" data-num=${m}>&nbsp;</div>
                         <div class="mines-flag"><img src="minesweeper_pics/flag.svg" alt="flag" class="img-flag hide"></div>
                     </div>
                 `
             } else {
                 var t2 = `
-                    <div id="id-mines-col-${j}" class="mines-col mask" data-col=${j}>
+                    <div class="mines-col mask" data-xy=${i}-${j}>
                         <div class="mines-cell" data-num=${m}>${m}</div>
                         <div class="mines-flag"><img src="minesweeper_pics/flag.svg" alt="flag" class="img-flag hide"></div>
                     </div>
@@ -192,7 +192,8 @@ var bindClick = function() {
                 col.classList.remove('mask')
                 cell.style.opacity = '1'
                 // showBlankAround()
-                
+                log('col.dataset.xy', col.dataset.xy)
+
             } else if (flag.classList.contains('show')) {
 
             } else {
