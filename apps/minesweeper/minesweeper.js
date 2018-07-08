@@ -80,12 +80,9 @@ var markedSquare = function(array) {
     return square
 }
 
-var templatePuzzle = function(n) {
-    var a = randomSquare09(n)
-    var s = markedSquare(a)
-    log('扫雷答案', s)
+var templatePuzzle = function(dyadicArray, n) {
     for (var i = 0; i < n; i++) {
-        var l = s[i]
+        var l = dyadicArray[i]
         var t1 = `<div id="id-mines-row-${i}" class="mines-row" data-row=${i}></div>`
         var e1 = e('#id-game-box')
         appendHtml(e1, t1)
@@ -93,21 +90,21 @@ var templatePuzzle = function(n) {
             var m = l[j]
             if (m == 9) {
                 var t2 = `
-                    <div class="mines-col mines-boom mask" data-xy=${i}-${j}>
+                    <div class="mines-col mines-boom mask" data-col=${j}>
                         <div class="mines-cell" data-num=${m}>&nbsp;</div>
                         <div class="mines-flag"><img src="minesweeper_pics/flag.svg" alt="flag" class="img-flag hide"></div>
                     </div>
                 `
             } else if (m == 0) {
                 var t2 = `
-                    <div class="mines-col mask" data-xy=${i}-${j}>
+                    <div class="mines-col mask" data-col=${j}>
                         <div class="mines-cell" data-num=${m}>&nbsp;</div>
                         <div class="mines-flag"><img src="minesweeper_pics/flag.svg" alt="flag" class="img-flag hide"></div>
                     </div>
                 `
             } else {
                 var t2 = `
-                    <div class="mines-col mask" data-xy=${i}-${j}>
+                    <div class="mines-col mask" data-col=${j}>
                         <div class="mines-cell" data-num=${m}>${m}</div>
                         <div class="mines-flag"><img src="minesweeper_pics/flag.svg" alt="flag" class="img-flag hide"></div>
                     </div>
@@ -117,6 +114,12 @@ var templatePuzzle = function(n) {
             appendHtml(e2, t2)
         }
     }
+}
+var mineSweeper = function(n) {
+    var a = randomSquare09(n)
+    var s = markedSquare(a)
+    log('扫雷答案', s)
+    templatePuzzle(s, n)
 }
 
 var totalMines = function() {
@@ -165,9 +168,42 @@ var bindContextMenu = function() {
     })
 }
 
-// var showBlankAround = function() {
-//
-// }
+var removeMask = function(cellbox, cell) {
+    cellbox.classList.remove('mask')
+    cell.style.opacity = '1'
+}
+
+var showBlank = function(cellbox, cell) {
+    // 1. array[x][y] 不能为 9
+    // 2. x 和 y 不能越界
+    var n = array.length
+    var validX = x >= 0 && x < n
+    var validY = y >= 0 && y < n
+    if (validX && validY) {
+        if (array[x][y] != 9) {
+            array[x][y] += 1
+        }
+    }
+    if (cell.dataset.num =='0') {
+        showBlankAround()
+    } else {
+        removeMask(cellbox, cell)
+    }
+}
+var showBlankAround = function(number, x, y) {
+    showBlank(x - 1, y - 1)
+    showBlank(x - 1, y)
+    showBlank(x - 1, y + 1)
+
+    // 再标记上下两个
+    showBlank(x, y - 1)
+    showBlank(x, y + 1)
+
+    // 最后标记右边 3 个
+    showBlank(x + 1, y - 1)
+    showBlank(x + 1, y)
+    showBlank(x + 1, y + 1)
+}
 
 var bindClick = function() {
     var box = e('#id-game-box')
@@ -182,38 +218,38 @@ var bindClick = function() {
                 var booms = es('.mines-boom')
                 for (var i = 0; i < booms.length; i++) {
                     var boomCell = booms[i].querySelector('.mines-cell')
-                    booms[i].classList.remove('mask')
                     booms[i].style.backgroundImage = 'url(minesweeper_pics/boom.svg)'
-                    boomCell.style.opacity = '1'
+                    removeMask(booms[i], boomCell)
                 }
                 // alert('boom, you lose')
             } else if (cell.dataset.num == '0') {
+                removeMask(col, cell)
                 var row = self.closest('.mines-row')
-                col.classList.remove('mask')
-                cell.style.opacity = '1'
                 // showBlankAround()
-                log('col.dataset.xy', col.dataset.xy)
 
             } else if (flag.classList.contains('show')) {
 
             } else {
-                col.classList.remove('mask')
-                cell.style.opacity = '1'
+                removeMask(col, cell)
             }
-            // else if (!flag.classList.contains('hide')) {
-            //
-            // }
         }
     })
 }
 
+// var bindButtonClick = function() {
+//     var btn = e('#id-game-restart')
+//     bindEvent(btn, 'click', function() {
+//         initPuzzles()
+//     })
+// }
 var initPuzzles = function() {
-    templatePuzzle(16)
+    mineSweeper(9)
 }
 
 var bindEvents = function() {
     bindContextMenu()
     bindClick()
+    // bindButtonClick()
 }
 
 var __main = function() {
