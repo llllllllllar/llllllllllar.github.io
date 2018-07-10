@@ -115,11 +115,13 @@ var templatePuzzle = function(dyadicArray, n) {
         }
     }
 }
+
 var mineSweeper = function(n) {
     var a = randomSquare09(n)
     var s = markedSquare(a)
     log('扫雷答案', s)
     templatePuzzle(s, n)
+    bindEvents(s, n)
 }
 
 var totalMines = function() {
@@ -162,55 +164,87 @@ var bindContextMenu = function() {
         if (self.classList.contains('mines-col') || self.classList.contains('mines-cell') || self.classList.contains('mines-flag') || self.classList.contains('img-flag')) {
             var col = self.closest('.mines-col')
             var img = col.querySelector('.img-flag')
-            toggleHide(img)
-            totalFlags()
+            if (col.classList.contains('mask')) {
+                toggleHide(img)
+                totalFlags()
+            }
         }
     })
 }
 
 var removeMask = function(cellbox, cell) {
-    cellbox.classList.remove('mask')
-    cell.style.opacity = '1'
+    if (cellbox.classList.contains('mask')) {
+        cellbox.classList.remove('mask')
+        cell.style.opacity = '1'
+    }
 }
 
-var showBlank = function(cellbox, cell) {
-    // 1. array[x][y] 不能为 9
-    // 2. x 和 y 不能越界
-    var n = array.length
-    var validX = x >= 0 && x < n
-    var validY = y >= 0 && y < n
-    if (validX && validY) {
-        if (array[x][y] != 9) {
-            array[x][y] += 1
+var checkEdge = function(x, y, rows, cols) {
+    return x >= 0 && x < cols && y >= 0 && y < rows
+}
+
+var locateCell = function(x, y) {
+    var rows = es('.mines-row')
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].dataset.row == `${x}`) {
+            var cols = rows[i].querySelectorAll('.mines-col')
+            for (var j = 0; j < cols.length; j++) {
+                if (cols[j].dataset.col == `${y}`) {
+                    var cell = cols[j].querySelector('.mines-cell')
+                    return cell
+                }
+            }
         }
     }
-    if (cell.dataset.num =='0') {
-        showBlankAround()
+}
+
+var anotherBlank = function(cell, rows, cols) {
+    if (cell.dataset.num == '0') {
+        var r = cell.closest('.mines-row')
+        var c = cell.closest('.mines-col')
+        var x2 = Number(r.dataset.row)
+        var y2 = Number(c.dataset.col)
+        showBlankAround(x2, y2, rows, cols)
     } else {
-        removeMask(cellbox, cell)
+        return
     }
 }
-var showBlankAround = function(number, x, y) {
-    showBlank(x - 1, y - 1)
-    showBlank(x - 1, y)
-    showBlank(x - 1, y + 1)
 
-    // 再标记上下两个
-    showBlank(x, y - 1)
-    showBlank(x, y + 1)
-
-    // 最后标记右边 3 个
-    showBlank(x + 1, y - 1)
-    showBlank(x + 1, y)
-    showBlank(x + 1, y + 1)
+var showBlank = function(x, y, rows, cols) {
+    var c = locateCell(x, y)
+    log('cell', c)
+    if (c.dataset.num != '9') {
+        var cb = c.closest('.mines-col')
+        removeMask(cb, c)
+        anotherBlank(c, rows, cols)
+    }
 }
 
-var bindClick = function() {
+var showBlankAround = function(x, y, rows, cols) {
+    if (checkEdge(x, y, rows, cols)) {
+        showBlank(x - 1, y - 1)
+        showBlank(x - 1, y)
+        showBlank(x - 1, y + 1)
+
+        // 再标记上下两个
+        showBlank(x, y - 1)
+        showBlank(x, y + 1)
+
+        // 最后标记右边 3 个
+        showBlank(x + 1, y - 1)
+        showBlank(x + 1, y)
+        showBlank(x + 1, y + 1)
+    }
+}
+
+var bindClick = function(s, n) {
     var box = e('#id-game-box')
+    // var openedCell = 0
     bindEvent(box, 'click', function(event) {
         var self = event.target
-        if (self.classList.contains('mines-col') || self.classList.contains('mines-cell') || self.classList.contains('mines-flag') || self.classList.contains('img-flag')) {
-            log('click start')
+        var condition = self.classList.contains('mines-col') || self.classList.contains('mines-cell') || self.classList.contains('mines-flag') || self.classList.contains('img-flag')
+        if (condition) {
+            log('bindClick ===> click cell')
             var col = self.closest('.mines-col')
             var cell = col.querySelector('.mines-cell')
             var flag = col.querySelector('.img-flag')
@@ -225,8 +259,10 @@ var bindClick = function() {
             } else if (cell.dataset.num == '0') {
                 removeMask(col, cell)
                 var row = self.closest('.mines-row')
-                // showBlankAround()
-
+                var x = Number(row.dataset.row)
+                var y = Number(col.dataset.col)
+                log('dataset', x, y)
+                showBlankAround(x, y, n, n)
             } else if (flag.classList.contains('show')) {
 
             } else {
@@ -243,19 +279,19 @@ var bindClick = function() {
 //     })
 // }
 var initPuzzles = function() {
-    mineSweeper(9)
+    mineSweeper(12)
 }
 
-var bindEvents = function() {
-    bindContextMenu()
-    bindClick()
+var bindEvents = function(s, n) {
+    bindContextMenu(s, n)
+    bindClick(s, n)
     // bindButtonClick()
 }
 
 var __main = function() {
     height()
     initPuzzles()
-    bindEvents()
+
     totalMines()
 }
 __main()
