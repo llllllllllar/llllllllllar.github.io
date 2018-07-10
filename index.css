@@ -53,9 +53,7 @@ body {
     color: rgba(255,255,255,1);
     text-decoration: underline;
 }
-/* .cover {
-    object-fit: cover;
-} */
+
 .fengxing-hide {
     display: none;
 }
@@ -64,13 +62,10 @@ body {
     border: 1px solid red;
 }
 .fengxing-item {
-    /*display: inline-block;*/
-    /*opacity: 0.6;*/
     filter: grayscale(100%);
 }
 .fengxing-item.fengxing-highlight {
     filter: initial;
-    /*opacity: 1;*/
 }
 .fengxing-item.fengxing-highlight img {
     width: 150px;
@@ -86,7 +81,6 @@ img {
 
 /*3. 轮播图*/
 .fengxing-slide {
-    /* width: 440px; */
     position: relative;
 }
 .fengxing-slide-image {
@@ -114,7 +108,7 @@ img {
 .fengxing-slide-button.fengxing-right {
     right: 0;
 }
-/* 用来垂直居中一个元素的套路 CSS */
+/* 用来垂直居中一个元素的 CSS */
 .fengxing-vertical-center {
     position: absolute;
     top: 50%;

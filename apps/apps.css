@@ -1,0 +1,77 @@
+body {
+    background-image: url(/pics/bg2.webp);
+    background-size: cover;
+}
+.container {
+    position: relative;
+    margin: 10px;
+}
+.content-wapper {
+    border-radius: 15px;
+    text-align: center;
+    background: rgba(0,0,0,0.45);
+    padding: 0 20px;
+}
+.fengxing-vertical {
+    position: absolute;
+    top: 10%;
+    transform: translateY(-10%);
+}
+.fengxing-horizontal {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.fengxing-float-left {
+    float: left;
+}
+.fengxing-clear::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.back {
+    font-size: 22px;
+}
+.back a {
+    text-decoration: none;
+    color: rgba(239,179,203,0.7)
+}
+.back a:hover {
+    text-decoration: underline;
+    color: rgba(255,255,255,1);
+}
+.title {
+    margin: 10px;
+    padding: 20px;
+    border-bottom: 2px solid rgba(239,179,203,0.45);
+    font-size: 22px;
+    color: rgba(239,179,203,0.9);
+}
+.fengxing-show {
+    display: block;
+}
+.fengxing-hide {
+    display: none;
+}
+.link-box {
+    margin: 15px;
+}
+.link-text {
+    margin: 8px 5px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgba(0,0,0,0.7)
+}
+.link-text a {
+    text-decoration: none;
+    color: rgba(229,124,0,1);
+}
+.link-text a:visited {
+    color: rgba(229,124,0,0.7);
+}
+.link-text a:hover {
+    color: rgba(255,255,255,1);
+    text-decoration: underline;
+}
