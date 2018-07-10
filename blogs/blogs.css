@@ -1,0 +1,35 @@
+body {
+    background-image: url(bg.jpg);
+    background-size: cover;
+    background-color: rgb(249, 249, 245);
+}
+.fengxing-vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.fengxing-horizontal-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.fengxing-float-left {
+    float: left;
+}
+.fengxing-clear::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.container {
+    position: relative;
+    margin: 10px;
+}
+
+.content-wapper {
+
+}
+.author-details {
+
+}
